@@ -1,0 +1,81 @@
+---
+title: "Chapter 4 – Mobile Horizons"
+description: "Flutter News App with Firebase Auth, Provider state management, and 90% crash reduction."
+coverIllustration: "/images/ch4-mobile-app.png"
+yearFrom: "2024-10"
+yearTo: "2024-10"
+---
+
+import PageSpread from '@/components/PageSpread'
+import StoryCard from '@/components/StoryCard'
+import TimelineBubble from '@/components/TimelineBubble'
+import ParallaxLayer from '@/components/ParallaxLayer'
+import Link from 'next/link'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
+<div className="relative min-h-screen">
+  <ParallaxLayer speed={0.5} className="opacity-20">
+    <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1200')] opacity-20" />
+  </ParallaxLayer>
+
+  <PageSpread chapterIndex={4}>
+    <div className="prose prose-invert max-w-none">
+      <h2 className="text-3xl font-display text-gold mb-6">Cross-Platform Reach</h2>
+      
+      <TimelineBubble year="October 2024" />
+      
+      <p className="text-lg leading-relaxed text-parchment/90 mb-6">
+        Mobile-first thinking demanded more than responsive web design. 
+        The News App project pushed me into Flutter's widget-driven world, 
+        where every pixel matters and performance is paramount.
+      </p>
+
+      <p className="text-lg leading-relaxed text-parchment/90">
+        Integrating NewsAPI with Firebase Auth, implementing Provider state management, 
+        and achieving a <strong>90% crash reduction</strong> during testing taught me 
+        that mobile development is as much about graceful degradation as it is about features.
+      </p>
+    </div>
+
+    <div className="space-y-6">
+      <StoryCard
+        emoji="📱"
+        heading="Flutter News App"
+        bullets={[
+          "Firebase Auth & Remote Config integration",
+          "Provider state management across 5+ UI components",
+          "100+ articles per request with pagination",
+          "90% crash reduction through comprehensive error handling",
+          "Cross-platform deployment (iOS & Android)"
+        ]}
+      />
+      
+      <div className="mt-6 p-4 bg-parchment/5 rounded-lg border border-gold/20">
+        <div className="text-center">
+          <div className="w-32 h-48 mx-auto bg-midnight border-2 border-gold/40 rounded-lg flex items-center justify-center">
+            <div className="text-gold text-xs">📱 App Demo</div>
+          </div>
+          <p className="text-sm text-parchment/70 mt-2">Interactive mobile preview</p>
+        </div>
+      </div>
+      
+      <div className="flex justify-between items-center pt-8">
+        <Link 
+          href="/farmiculture"
+          className="flex items-center gap-2 px-4 py-2 text-gold hover:text-gold/80 transition-colors"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          Previous
+        </Link>
+        <Link 
+          href="/hackathon-leaps"
+          className="flex items-center gap-2 px-4 py-2 text-gold hover:text-gold/80 transition-colors"
+        >
+          Next Chapter
+          <ChevronRight className="w-4 h-4" />
+        </Link>
+      </div>
+    </div>
+  </PageSpread>
+</div>
+\`\`\`

@@ -1,0 +1,84 @@
+---
+title: "Chapter 2 – Shipping at Scale"
+description: "Full-Stack internship at The Orchid Group - sprint cadence, QA wins, and CI/CD pipelines."
+coverIllustration: "/images/ch2-office-desk.png"
+yearFrom: "2024-06"
+yearTo: "2024-08"
+---
+
+import PageSpread from '@/components/PageSpread'
+import StoryCard from '@/components/StoryCard'
+import TimelineBubble from '@/components/TimelineBubble'
+import ParallaxLayer from '@/components/ParallaxLayer'
+import Link from 'next/link'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
+<div className="relative min-h-screen">
+  <ParallaxLayer speed={0.6} className="opacity-20">
+    <div className="absolute top-1/4 left-1/4 w-8 h-8 bg-gold/30 rounded transform rotate-45" />
+    <div className="absolute bottom-1/3 right-1/3 w-6 h-6 bg-mint/30 rounded transform rotate-12" />
+    <div className="absolute top-1/2 right-1/4 w-4 h-4 bg-gold/20 rounded" />
+  </ParallaxLayer>
+
+  <PageSpread chapterIndex={2}>
+    <div className="prose prose-invert max-w-none">
+      <h2 className="text-3xl font-display text-gold mb-6">Enterprise Velocity</h2>
+      
+      <TimelineBubble year="June - August 2024" />
+      
+      <p className="text-lg leading-relaxed text-parchment/90 mb-6">
+        The Orchid Group internship threw me into the deep end of enterprise development. 
+        Sprint planning at 9 AM, code reviews by noon, deployments before sunset. 
+        I learned that shipping fast doesn't mean shipping broken.
+      </p>
+
+      <p className="text-lg leading-relaxed text-parchment/90">
+        Partnering with design, dev & QA teams, I helped revamp a legacy platform—
+        reducing the JIRA-tracked UI bug backlog by 25% and improving average 
+        page-load times by 20% through targeted optimizations and React performance tuning.
+      </p>
+    </div>
+
+    <div className="space-y-6">
+      <StoryCard
+        emoji="🔧"
+        heading="Legacy Revamp"
+        bullets={[
+          "25% UI bug backlog burn-down (JIRA)",
+          "React Bundle ⇒ 20% lighter via dynamic imports",
+          "8 React modules refactored in 2-week sprints",
+          "30+ Selenium end-to-end test scripts authored"
+        ]}
+      />
+      
+      <StoryCard
+        emoji="⚡"
+        heading="Delivery Acceleration"
+        bullets={[
+          "6 Node/Express APIs refactored, added Jest coverage",
+          "GitHub Actions matrix (Node v16, v18) passes < 3 min",
+          "TDD methodology embedded in sprint workflow",
+          "Cross-team QA review sessions reduced defects by 20%"
+        ]}
+      />
+      
+      <div className="flex justify-between items-center pt-8">
+        <Link 
+          href="/foundations"
+          className="flex items-center gap-2 px-4 py-2 text-gold hover:text-gold/80 transition-colors"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          Previous
+        </Link>
+        <Link 
+          href="/farmiculture"
+          className="flex items-center gap-2 px-4 py-2 text-gold hover:text-gold/80 transition-colors"
+        >
+          Next Chapter
+          <ChevronRight className="w-4 h-4" />
+        </Link>
+      </div>
+    </div>
+  </PageSpread>
+</div>
+\`\`\`
