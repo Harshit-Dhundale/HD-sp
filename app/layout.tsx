@@ -6,6 +6,9 @@ import { ChapterProvider } from "./context/chapter"
 import { ModeProvider } from "./context/mode"
 import { Toaster } from "@/components/ui/sonner"
 import { ModalProvider } from "../hooks/useModal"
+import { ThemeProvider } from "@/components/theme-provider"
+import { ModalProject } from "../components/ModalProject"
+import { projects } from "../data/projects"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -31,14 +34,27 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ModalProvider>
-          <ModeProvider>
-            <ChapterProvider>
-              {children}
-              <Toaster />
-            </ChapterProvider>
-          </ModeProvider>
-        </ModalProvider>
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ModalProvider>
+            <ModeProvider>
+              <ChapterProvider>
+                <main id="main-content">
+                  {children}
+                </main>
+                <ModalProject projects={projects} />
+                <Toaster />
+              </ChapterProvider>
+            </ModeProvider>
+          </ModalProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion"
 import type { Skill } from "../data/skills"
+import { SkillIcon } from "./SkillIcon"
 
 interface SkillChipProps extends Skill {
   className?: string
 }
 
-export function SkillChip({ name, category, icon, yearsOfExperience, className = "" }: SkillChipProps) {
+export function SkillChip({ name, category, icon, yearsOfExperience, brandColor, className = "" }: SkillChipProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.05, y: -2 }}
@@ -15,20 +16,8 @@ export function SkillChip({ name, category, icon, yearsOfExperience, className =
       className={`group relative bg-card border border-border rounded-lg p-4 hover:shadow-lg hover:border-primary/20 transition-all duration-200 cursor-pointer ${className}`}
     >
       {/* Icon */}
-      <div className="w-12 h-12 mx-auto mb-3 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-        <div className="text-2xl">
-          {icon === "python"
-            ? "🐍"
-            : icon === "javascript"
-              ? "📟"
-              : icon === "react"
-                ? "⚛️"
-                : icon === "nodejs"
-                  ? "🟢"
-                  : icon === "aws"
-                    ? "☁️"
-                    : "⚡"}
-        </div>
+      <div className="w-12 h-12 mx-auto mb-3 bg-muted/50 rounded-lg flex items-center justify-center group-hover:bg-muted/70 transition-colors">
+        <SkillIcon name={name} className="w-6 h-6" brandColor={brandColor} />
       </div>
 
       {/* Label */}

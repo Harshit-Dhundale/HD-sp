@@ -6,126 +6,21 @@ import { projects, projectCategories, featuredProjects } from "../data/projects"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { ExternalLink, Github, Star, Calendar, Users, Award } from "lucide-react"
+import { ExternalLink, Github, Star, Calendar, Users, Award, ChevronDown } from "lucide-react"
 import Image from "next/image"
-import { useModal } from "../hooks/useModal"
+import { useHashDialog } from "@/hooks/useHashDialog"
 
 export function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState("All")
   const [showAll, setShowAll] = useState(false)
-  const { openModal } = useModal()
+  const { openDialog } = useHashDialog({ hashKey: 'project' })
 
   const categories = Object.keys(projectCategories)
   const filteredProjects = projectCategories[activeCategory as keyof typeof projectCategories] || projects
   const displayProjects = showAll ? filteredProjects : filteredProjects.slice(0, 6)
 
   const openProjectModal = (project: (typeof projects)[0]) => {
-    openModal(
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="relative h-64 mb-6 rounded-lg overflow-hidden">
-          <Image
-            src={project.image || "/placeholder.svg"}
-            alt={project.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 800px"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4">
-            <h2 className="text-2xl font-bold text-white mb-2">{project.title}</h2>
-            <div className="flex items-center gap-4 text-white/80 text-sm">
-              <div className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                {project.year}
-              </div>
-              {project.teamSize && (
-                <div className="flex items-center gap-1">
-                  <Users className="w-4 h-4" />
-                  {project.teamSize} members
-                </div>
-              )}
-              <Badge variant="secondary" className="bg-white/20 text-white">
-                Rank #{project.rank}
-              </Badge>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Overview</h3>
-            <p className="text-muted-foreground leading-relaxed">{project.longDescription || project.description}</p>
-          </div>
-
-          {project.role && (
-            <div>
-              <h3 className="text-lg font-semibold mb-2">My Role</h3>
-              <p className="text-muted-foreground">{project.role}</p>
-            </div>
-          )}
-
-          {project.achievements && project.achievements.length > 0 && (
-            <div>
-              <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                <Award className="w-5 h-5 text-primary" />
-                Key Achievements
-              </h3>
-              <ul className="space-y-2">
-                {project.achievements.map((achievement, index) => (
-                  <li key={index} className="flex items-start gap-2 text-muted-foreground">
-                    <Star className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
-                    {achievement}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {project.architecture && project.architecture.length > 0 && (
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Architecture & Technologies</h3>
-              <div className="flex flex-wrap gap-2">
-                {project.architecture.map((tech, index) => (
-                  <Badge key={index} variant="outline">
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Technologies Used</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, index) => (
-                <Badge key={index} variant="secondary">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex gap-4 pt-4">
-            {project.github && (
-              <Button asChild>
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="w-4 h-4 mr-2" />
-                  View Code
-                </a>
-              </Button>
-            )}
-            {project.live && (
-              <Button variant="outline" asChild>
-                <a href={project.live} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Live Demo
-                </a>
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>,
-    )
+    openDialog(project.id)
   }
 
   return (

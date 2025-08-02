@@ -1,9 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CalendarDays, MapPin, Building, ExternalLink } from "lucide-react"
+import { ExperienceCard } from "./ExperienceCard"
+import clsx from "clsx"
 
 const experiences = [
   {
@@ -66,91 +65,24 @@ export function ExperienceSection() {
 
         {/* Experience Timeline */}
         <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-border md:left-1/2 md:transform md:-translate-x-0.5" />
-
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={exp.id}
+          <ol className="relative border-l border-border ml-4 space-y-16">
+            {experiences.map((job, idx) => (
+              <motion.li
+                key={job.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className={`relative mb-12 md:mb-16 ${
-                  index % 2 === 0 ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-8"
-                }`}
+                transition={{ delay: idx * 0.2 }}
+                className="relative pl-10"
               >
-                {/* Timeline Dot */}
-                <div className="absolute left-6 w-4 h-4 bg-primary rounded-full border-4 border-background z-10 md:left-1/2 md:transform md:-translate-x-2" />
-
-                <Card className="ml-16 md:ml-0 group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 bg-card/80 backdrop-blur-sm">
-                  <CardContent className="p-8">
-                    {/* Company & Position */}
-                    <div className="mb-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Building className="w-5 h-5 text-primary" />
-                        <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{exp.company}</h3>
-                        {exp.website !== "#" && (
-                          <a
-                            href={exp.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        )}
-                      </div>
-                      <h4 className="text-lg font-semibold text-primary mb-2">{exp.position}</h4>
-
-                      <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
-                        <div className="flex items-center gap-1">
-                          <CalendarDays className="w-4 h-4" />
-                          {exp.duration}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          {exp.location}
-                        </div>
-                        <Badge variant={exp.type === "Internship" ? "secondary" : "default"} className="text-xs">
-                          {exp.type}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-muted-foreground leading-relaxed mb-6">{exp.description}</p>
-
-                    {/* Key Achievements */}
-                    <div className="mb-6">
-                      <h5 className="font-semibold mb-3">Key Achievements</h5>
-                      <ul className="space-y-2">
-                        {exp.achievements.map((achievement, achIndex) => (
-                          <li key={achIndex} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Technologies */}
-                    <div>
-                      <h5 className="font-semibold mb-3">Technologies Used</h5>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.technologies.map((tech, techIndex) => (
-                          <Badge key={techIndex} variant="outline" className="text-xs">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                {/* Timeline dot */}
+                <span className="absolute -left-4 top-1.5 w-3 h-3 rounded-full bg-primary ring-4 ring-background" />
+                
+                {/* Experience card */}
+                <ExperienceCard data={job} />
+              </motion.li>
             ))}
-          </div>
+          </ol>
         </div>
 
         {/* Summary Stats */}

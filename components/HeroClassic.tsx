@@ -6,9 +6,14 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
-import { TypeCycle } from "./TypeCycle"
+import { useTypewriter } from 'react-simple-typewriter'
 
 export function HeroClassic() {
+  const [text] = useTypewriter({ 
+    words: ['Full-Stack Developer', 'ML Enthusiast', 'Cloud Native Builder'], 
+    loop: true 
+  })
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     element?.scrollIntoView({ behavior: "smooth" })
@@ -33,10 +38,10 @@ export function HeroClassic() {
             <div className="relative inline-block">
               <Image
                 src="/images/harshit.webp"
-                alt="Harshit"
-                width={150}
-                height={150}
-                className="rounded-full border-4 border-primary/20 shadow-2xl"
+                alt="Harshit Dhundale"
+                width={192}
+                height={192}
+                className="w-48 h-48 rounded-full ring-4 ring-blue-400/30 shadow-lg"
                 priority
               />
               <div className="absolute -bottom-2 -right-2 bg-green-500 rounded-full p-2 border-4 border-background">
@@ -54,20 +59,11 @@ export function HeroClassic() {
           >
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
               <span className="bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">
-                Harshit
+                Harshit Dhundale
               </span>
             </h1>
             <div className="text-xl md:text-2xl text-muted-foreground mb-4">
-              <TypeCycle
-                words={[
-                  "Full-Stack Developer",
-                  "AI Enthusiast",
-                  "Problem Solver",
-                  "Innovation Driver",
-                  "Tech Explorer",
-                ]}
-                className="font-medium"
-              />
+              <span className="font-medium">{text}</span>
             </div>
           </motion.div>
 

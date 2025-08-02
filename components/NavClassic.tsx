@@ -7,6 +7,8 @@ import { Menu, X, Sun, Moon, BookOpen, User } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useMode } from "../app/context/mode"
 import { useMounted } from "../hooks/useMounted"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 const navItems = [
   { label: "About", href: "#about", id: "about" },
@@ -25,6 +27,7 @@ export function NavClassic() {
   const { theme, setTheme } = useTheme()
   const { mode, toggleMode } = useMode()
   const mounted = useMounted()
+  const router = useRouter()
 
   // Handle scroll effects
   useEffect(() => {
@@ -81,7 +84,7 @@ export function NavClassic() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <User className="w-4 h-4 text-primary-foreground" />
+                <span className="text-primary-foreground font-bold text-sm">HD</span>
               </div>
               <span className="font-bold text-lg">Harshit</span>
             </motion.div>
@@ -113,6 +116,11 @@ export function NavClassic() {
               </div>
 
               <div className="flex items-center gap-2 border-l border-border pl-4">
+                {/* Resume Button */}
+                <Button asChild variant="outline">
+                  <Link href="/resume.pdf" target="_blank">Résumé</Link>
+                </Button>
+
                 {/* Theme Toggle */}
                 <Button variant="ghost" size="sm" onClick={toggleTheme} className="w-9 h-9 p-0">
                   <AnimatePresence mode="wait">
@@ -128,16 +136,29 @@ export function NavClassic() {
                   </AnimatePresence>
                 </Button>
 
-                {/* Mode Toggle */}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={toggleMode}
-                  className="w-9 h-9 p-0"
-                  title={mode === "classic" ? "Switch to Storybook Mode" : "Switch to Classic Mode"}
-                >
-                  <BookOpen className="w-4 h-4" />
-                </Button>
+                {/* Storybook Toggle */}
+                <div className="relative">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      const pathname = window.location.pathname;
+                      router.push(pathname.startsWith('/storybook') ? '/' : '/storybook');
+                    }}
+                    className="gap-2 relative"
+                    title="Switch storytelling mode (⌘ K)"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    <span className="hidden md:inline">
+                      {window.location.pathname.startsWith('/storybook') ? 'Classic View' : 'Storybook View'}
+                    </span>
+                    <span className="md:hidden">
+                      {window.location.pathname.startsWith('/storybook') ? 'Classic' : 'Story'}
+                    </span>
+                  </Button>
+                  {/* Indicator */}
+                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full opacity-0 group-data-[active]:opacity-100" />
+                </div>
               </div>
             </div>
 
