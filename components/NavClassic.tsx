@@ -34,15 +34,23 @@ export function NavClassic() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
 
-      // Update active section based on scroll position
-      const sections = navItems.map((item) => document.getElementById(item.id.replace("#", "")))
-      const scrollPosition = window.scrollY + 100
+      // Update active section based on scroll position or hash
+      const hash = typeof window !== "undefined" ? window.location.hash : ""
+      const current = hash || "#about"
+      
+      if (hash) {
+        setActiveSection(hash.replace("#", ""))
+      } else {
+        // Update active section based on scroll position
+        const sections = navItems.map((item) => document.getElementById(item.id))
+        const scrollPosition = window.scrollY + 100
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i]
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(navItems[i].id)
-          break
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = sections[i]
+          if (section && section.offsetTop <= scrollPosition) {
+            setActiveSection(navItems[i].id)
+            break
+          }
         }
       }
     }
@@ -64,7 +72,40 @@ export function NavClassic() {
     setTheme(theme === "dark" ? "light" : "dark")
   }
 
-  if (!mounted) return null
+  if (!mounted) {
+    // Server-side fallback - render basic nav structure without theme-dependent elements
+    return (
+      <>
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between h-16">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-sm">HD</span>
+                </div>
+                <span className="font-bold text-lg">Harshit</span>
+              </div>
+              <div className="hidden lg:flex items-center gap-8">
+                <div className="flex items-center gap-1">
+                  {navItems.map((item) => (
+                    <Button
+                      key={item.id}
+                      variant="ghost"
+                      size="sm"
+                      className="text-muted-foreground"
+                    >
+                      {item.label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div className="h-16" />
+      </>
+    )
+  }
 
   return (
     <>

@@ -55,9 +55,14 @@ export function TypeCycle({
     return () => clearTimeout(timeout)
   }, [currentText, currentWordIndex, isDeleting, isPaused, words, typingSpeed, deletingSpeed, pauseDuration])
 
+  const widest = "Cloud Native Builder"
+  
   return (
-    <div className={`inline-flex items-center justify-center relative ${className}`}>
-      <div className="flex items-center">
+    <span className={`relative inline-block ${className}`}>
+      <span className="invisible tracking-normal select-none">
+        {widest}
+      </span>
+      <span className="absolute inset-0 flex items-center">
         <AnimatePresence mode="wait">
           <motion.span
             key={currentText}
@@ -66,7 +71,7 @@ export function TypeCycle({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1 }}
           >
-            <span className="inline-block w-[22ch] text-center">{currentText}</span>
+            {currentText}
           </motion.span>
         </AnimatePresence>
         <motion.span
@@ -76,7 +81,7 @@ export function TypeCycle({
         >
           |
         </motion.span>
-      </div>
-    </div>
+      </span>
+    </span>
   )
 }

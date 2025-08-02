@@ -9,10 +9,12 @@ import Link from "next/link"
 import { useTypewriter } from 'react-simple-typewriter'
 
 export function HeroClassic() {
+  const words = ['Full-Stack Developer', 'ML Enthusiast', 'Cloud Native Builder']
   const [text] = useTypewriter({ 
-    words: ['Full-Stack Developer', 'ML Enthusiast', 'Cloud Native Builder'], 
+    words, 
     loop: true 
   })
+  const widest = "Cloud Native Builder"
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -20,7 +22,7 @@ export function HeroClassic() {
   }
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="about" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.1),transparent_50%)]" />
@@ -62,8 +64,13 @@ export function HeroClassic() {
                 Harshit Dhundale
               </span>
             </h1>
-            <div className="text-xl md:text-2xl text-muted-foreground mb-4">
-              <span className="font-medium">{text}</span>
+            <div className="relative h-[2.5rem] mx-auto mb-4 overflow-hidden">
+              <span aria-hidden style={{visibility:'hidden', whiteSpace:'nowrap'}} className="text-xl md:text-2xl font-medium">
+                {widest}
+              </span>
+              <span className="absolute inset-0 flex justify-center text-xl md:text-2xl text-muted-foreground">
+                <span className="font-medium">{text}</span>
+              </span>
             </div>
           </motion.div>
 

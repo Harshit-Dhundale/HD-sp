@@ -2,6 +2,7 @@
 
 import { HeroClassic } from "../components/HeroClassic"
 import { SkillsSection } from "../components/SkillsSection"
+import { Certifications } from "../components/Certifications"
 import { ProjectsSection } from "../components/ProjectsSection"
 import { ExperienceSection } from "../components/ExperienceSection"
 import { EducationSection } from "../components/EducationSection"
@@ -15,6 +16,7 @@ export default function HomePage() {
       <main>
         <HeroClassic />
         <SkillsSection />
+        <Certifications />
         <ProjectsSection />
         <ExperienceSection />
         <EducationSection />

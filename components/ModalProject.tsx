@@ -14,6 +14,7 @@ import LightboxGallery from "./LightboxGallery"
 import { useHashDialog } from "@/hooks/useHashDialog"
 import type { Project } from "@/data/projects"
 import posthog from "posthog-js"
+import { useToast } from "@/hooks/use-toast"
 
 interface ModalProjectProps {
   projects: Project[]
@@ -26,6 +27,7 @@ export function ModalProject({ projects }: ModalProjectProps) {
     achievements: false,
   })
   const [githubStars, setGithubStars] = useState<number | null>(null)
+  const { toast } = useToast()
 
   const { isOpen, activeId, closeDialog } = useHashDialog({
     hashKey: 'project',
@@ -60,20 +62,20 @@ export function ModalProject({ projects }: ModalProjectProps) {
   const copyProjectLink = () => {
     const url = `${window.location.origin}#project=${project?.id}`
     navigator.clipboard.writeText(url)
-    // Add toast notification here
+    toast({ title: "Copied to clipboard ✅" })
   }
 
   const copyDemoLink = () => {
     if (project?.links.live) {
       navigator.clipboard.writeText(project.links.live)
-      // Add toast notification here
+      toast({ title: "Copied to clipboard ✅" })
     }
   }
 
   const copyRepoLink = () => {
     if (project?.links.repo) {
       navigator.clipboard.writeText(project.links.repo)
-      // Add toast notification here
+      toast({ title: "Copied to clipboard ✅" })
     }
   }
 

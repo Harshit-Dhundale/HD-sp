@@ -22,7 +22,7 @@ export default function ModalCert() {
   const copyUrl = () => {
     if (cert.verificationUrl) {
       navigator.clipboard.writeText(cert.verificationUrl)
-      toast({ description: "URL copied" })
+      toast({ title: "Copied to clipboard ✅" })
     }
   }
 
@@ -40,7 +40,7 @@ export default function ModalCert() {
             {cert.credentialId && <p className="text-sm">Credential ID: {cert.credentialId}</p>}
             {cert.verificationUrl && (
               <Button size="sm" onClick={copyUrl}>
-                Copy URL
+                Copy Verification URL
               </Button>
             )}
           </div>

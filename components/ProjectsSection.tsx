@@ -18,8 +18,8 @@ export function ProjectsSection() {
 
   const toggleShow = () => {
     if (showAll) {
-      const top = sectionRef.current?.offsetTop ?? 0
-      window.scrollTo({ top, behavior: "smooth" })
+      // When collapsing, scroll to section top
+      sectionRef.current?.scrollIntoView({ behavior: "smooth" })
     }
     setShowAll((prev) => !prev)
   }
@@ -27,6 +27,16 @@ export function ProjectsSection() {
   return (
     <section id="projects" ref={sectionRef} className="py-20">
       <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+            Featured Projects
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            A collection of projects showcasing different technologies, problem-solving approaches, and creative solutions.
+          </p>
+        </div>
+
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {visibleProjects.map((project, index) => (
             <ProjectCard
@@ -44,7 +54,7 @@ export function ProjectsSection() {
               <ChevronDown
                 className={`mr-2 h-4 w-4 transition-transform ${showAll ? "rotate-180" : ""}`}
               />
-              {showAll ? "Collapse" : `Show All Projects (+${hidden})`}
+              {showAll ? "Show Less" : `Show All Projects (+${hidden})`}
             </Button>
           </div>
         )}

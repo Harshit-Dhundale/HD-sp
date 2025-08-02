@@ -53,6 +53,24 @@ const education = [
     ],
     courses: ["Physics", "Chemistry", "Mathematics", "Computer Science", "English"],
   },
+  {
+    id: "cbse10",
+    institution: "Central Board of Secondary Education",
+    degree: "Secondary School Certificate (CBSE X)",
+    field: "Science",
+    duration: "2017 - 2019",
+    location: "India",
+    status: "Completed",
+    percentage: "93%",
+    description:
+      "Completed secondary education with focus on Science and Mathematics, laying the foundation for future academic pursuits.",
+    highlights: [
+      "Science topper",
+      "School coding club lead",
+      "Active participation in academic competitions",
+    ],
+    courses: ["Science", "Mathematics", "English", "Social Studies", "Hindi"],
+  },
 ]
 
 const achievements = [

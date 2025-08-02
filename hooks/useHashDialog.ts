@@ -41,11 +41,22 @@ export function useHashDialog({ hashKey, onOpen, onClose }: UseHashDialogProps) 
   }, [hashKey, onOpen, onClose])
 
   const openDialog = (id: string) => {
+    // Set state immediately for instant UI feedback
+    setActiveId(id)
+    setIsOpen(true)
+    onOpen?.(id)
+    
+    // Then update the hash
     const newHash = `${hashKey}=${id}`
-    router.push(`#${newHash}`, { scroll: false })
+    router.replace(`#${newHash}`, { scroll: false })
   }
 
   const closeDialog = () => {
+    // Set state immediately for instant UI feedback
+    setIsOpen(false)
+    setActiveId(null)
+    onClose?.()
+    
     // Remove the specific hash parameter while preserving others
     const hash = window.location.hash.slice(1)
     const params = new URLSearchParams(hash)
