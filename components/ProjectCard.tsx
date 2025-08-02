@@ -3,23 +3,23 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { ExternalLink, Github, Eye } from "lucide-react"
-import type { Project } from "../data/projects"
+import type { Project } from "@/data/projects"
 
 interface ProjectCardProps {
   project: Project
   index: number
-  onClick: () => void
+  onOpen?: (slug: string) => void
 }
 
-export default function ProjectCard({ project, index, onClick }: ProjectCardProps) {
+export default function ProjectCard({ project, index, onOpen }: ProjectCardProps) {
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
       className="group cursor-pointer"
-      onClick={onClick}
+      onClick={() => onOpen?.(project.id)}
     >
       <div className="project-card h-full">
         {/* Project Image */}
@@ -90,6 +90,6 @@ export default function ProjectCard({ project, index, onClick }: ProjectCardProp
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   )
 }

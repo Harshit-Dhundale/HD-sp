@@ -10,16 +10,10 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
-import { LightboxGallery } from "./LightboxGallery"
+import LightboxGallery from "./LightboxGallery"
 import { useHashDialog } from "@/hooks/useHashDialog"
-import type { Project } from "../data/projects"
-
-// Analytics helper
-const trackEvent = (eventName: string, properties: any) => {
-  if (typeof window !== 'undefined' && (window as any).posthog) {
-    (window as any).posthog.capture(eventName, properties)
-  }
-}
+import type { Project } from "@/data/projects"
+import posthog from "posthog-js"
 
 interface ModalProjectProps {
   projects: Project[]
@@ -38,7 +32,7 @@ export function ModalProject({ projects }: ModalProjectProps) {
     onOpen: (id) => {
       const project = projects.find(p => p.id === id)
       if (project) {
-        trackEvent('project_open', { slug: id })
+        posthog.capture('project_open', { slug: project.id })
       }
     }
   })

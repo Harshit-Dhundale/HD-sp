@@ -55,19 +55,8 @@ export function TypeCycle({
     return () => clearTimeout(timeout)
   }, [currentText, currentWordIndex, isDeleting, isPaused, words, typingSpeed, deletingSpeed, pauseDuration])
 
-  // Find the longest word for width reservation
-  const longestWord = words.reduce((longest, current) => 
-    current.length > longest.length ? current : longest, ""
-  )
-
   return (
-    <div className={`inline-flex items-center justify-center min-h-[3.75rem] lg:min-h-[4.25rem] relative ${className}`}>
-      {/* Invisible placeholder to reserve width */}
-      <span className="opacity-0 pointer-events-none absolute" aria-hidden="true">
-        {longestWord}|
-      </span>
-      
-      {/* Visible typewriter content */}
+    <div className={`inline-flex items-center justify-center relative ${className}`}>
       <div className="flex items-center">
         <AnimatePresence mode="wait">
           <motion.span
@@ -77,7 +66,7 @@ export function TypeCycle({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1 }}
           >
-            {currentText}
+            <span className="inline-block w-[22ch] text-center">{currentText}</span>
           </motion.span>
         </AnimatePresence>
         <motion.span
