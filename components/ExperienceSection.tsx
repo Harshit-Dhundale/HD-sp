@@ -7,10 +7,10 @@ import clsx from "clsx"
 const experiences = [
   {
     id: "orchid-intern",
-    company: "Orchid Technologies",
-    position: "Software Development Intern",
+    company: "The Orchid Group",
+    position: "Full-Stack Web Developer",
     duration: "Jun 2023 - Aug 2023",
-    location: "Mumbai, India",
+    location: "Indore, India",
     type: "Internship",
     description:
       "Developed and optimized web applications using modern frameworks. Collaborated with senior developers on client projects and gained hands-on experience in full-stack development.",
@@ -20,27 +20,26 @@ const experiences = [
       "Collaborated with design team to implement pixel-perfect UI components",
       "Participated in code reviews and learned industry best practices",
     ],
-    technologies: ["React", "Node.js", "MongoDB", "JavaScript", "HTML/CSS"],
-    website: "https://orchidtech.com",
+    technologies: ["React", "Node.js", "MongoDB", "JavaScript", "Express.js", "HTML/CSS"],
+    website: "#",
   },
   {
     id: "freelance",
     company: "Freelance Developer",
     position: "Full-Stack Developer",
-    duration: "Jan 2022 - Present",
+    duration: "Jan 2023 - Present",
     location: "Remote",
     type: "Freelance",
     description:
-      "Providing end-to-end web development services to clients across various industries. Specializing in modern web technologies and AI-powered solutions.",
+      "Worked on diverse personal and collaborative projects focused on modern web technologies, full-stack development, and AI-powered solutions. Built production-ready applications while exploring scalable system architectures.",
     achievements: [
-      "Delivered 15+ successful projects with 100% client satisfaction",
-      "Built AI-powered agricultural platform serving 500+ farmers",
-      "Developed real-time collaborative tools for remote teams",
-      "Created mobile applications with 50K+ downloads",
+      "Developed 7+ full-stack projects, including web apps, dashboards, and AI-powered tools",
+      "Built real-time collaborative features such as chat, notifications, and live data streaming",
+      "Gained hands-on experience deploying applications using AWS, Vercel, and Render"
     ],
-    technologies: ["React", "Next.js", "Python", "FastAPI", "AWS", "Flutter", "TensorFlow"],
-    website: "#",
-  },
+    technologies: ["React", "Next.js", "Node.js", "Python", "FastAPI", "Express.js", "AWS", "Flutter", "TensorFlow"],
+    website: "#"
+},
 ]
 
 export function ExperienceSection() {
@@ -93,19 +92,19 @@ export function ExperienceSection() {
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-2xl mx-auto"
         >
           <div className="text-center p-4 bg-card rounded-lg border">
-            <div className="text-2xl font-bold text-primary mb-1">4+</div>
-            <div className="text-sm text-muted-foreground">Years Experience</div>
+            <div className="text-2xl font-bold text-primary mb-1">2+</div>
+            <div className="text-sm text-muted-foreground">Years Hands-on Development Experience</div>
           </div>
           <div className="text-center p-4 bg-card rounded-lg border">
-            <div className="text-2xl font-bold text-primary mb-1">15+</div>
+            <div className="text-2xl font-bold text-primary mb-1">7+</div>
             <div className="text-sm text-muted-foreground">Projects Delivered</div>
           </div>
           <div className="text-center p-4 bg-card rounded-lg border">
-            <div className="text-2xl font-bold text-primary mb-1">100%</div>
-            <div className="text-sm text-muted-foreground">Client Satisfaction</div>
+            <div className="text-2xl font-bold text-primary mb-1">200+</div>
+            <div className="text-sm text-muted-foreground">DSA Problems Solved</div>
           </div>
           <div className="text-center p-4 bg-card rounded-lg border">
-            <div className="text-2xl font-bold text-primary mb-1">2</div>
+            <div className="text-2xl font-bold text-primary mb-1">2+</div>
             <div className="text-sm text-muted-foreground">Cloud Certifications</div>
           </div>
         </motion.div>

@@ -3,11 +3,9 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Sun, Moon, BookOpen, User } from "lucide-react"
+import { Menu, X, Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useMode } from "../app/context/mode"
 import { useMounted } from "../hooks/useMounted"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 
 const navItems = [
@@ -22,98 +20,54 @@ const navItems = [
 
 export function NavClassic() {
   const [isOpen, setIsOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("")
+  const [activeSection, setActiveSection] = useState("about")
   const [isScrolled, setIsScrolled] = useState(false)
   const { theme, setTheme } = useTheme()
-  const { mode, toggleMode } = useMode()
   const mounted = useMounted()
-  const router = useRouter()
 
-  // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
 
-      // Update active section based on scroll position or hash
-      const hash = typeof window !== "undefined" ? window.location.hash : ""
-      const current = hash || "#about"
-      
-      if (hash) {
-        setActiveSection(hash.replace("#", ""))
-      } else {
-        // Update active section based on scroll position
-        const sections = navItems.map((item) => document.getElementById(item.id))
-        const scrollPosition = window.scrollY + 100
-
-        for (let i = sections.length - 1; i >= 0; i--) {
-          const section = sections[i]
-          if (section && section.offsetTop <= scrollPosition) {
-            setActiveSection(navItems[i].id)
-            break
-          }
+      const scrollPosition = window.scrollY + 150
+      for (let i = navItems.length - 1; i >= 0; i--) {
+        const section = document.getElementById(navItems[i].id)
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(navItems[i].id)
+          break
         }
       }
     }
 
     window.addEventListener("scroll", handleScroll)
-    handleScroll() // Initial call
+    handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId.replace("#", ""))
+    const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
       setIsOpen(false)
     }
   }
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
-  }
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark")
 
   if (!mounted) {
-    // Server-side fallback - render basic nav structure without theme-dependent elements
-    return (
-      <>
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">HD</span>
-                </div>
-                <span className="font-bold text-lg">Harshit</span>
-              </div>
-              <div className="hidden lg:flex items-center gap-8">
-                <div className="flex items-center gap-1">
-                  {navItems.map((item) => (
-                    <Button
-                      key={item.id}
-                      variant="ghost"
-                      size="sm"
-                      className="text-muted-foreground"
-                    >
-                      {item.label}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-        <div className="h-16" />
-      </>
-    )
+    return <div className="h-16" /> // Prevents flicker on first render
   }
 
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
+        initial={{ y: -80 }}
         animate={{ y: 0 }}
+        transition={{ duration: 0.4 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border shadow-lg" : "bg-transparent"
+          isScrolled
+            ? "bg-background/80 backdrop-blur-lg border-b border-border shadow-md"
+            : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-4">
@@ -121,17 +75,17 @@ export function NavClassic() {
             {/* Logo */}
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="flex items-center gap-2 cursor-pointer"
+              className="flex items-center gap-2 cursor-pointer select-none"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center shadow-md">
                 <span className="text-primary-foreground font-bold text-sm">HD</span>
               </div>
               <span className="font-bold text-lg">Harshit</span>
             </motion.div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
+            {/* Desktop Nav - Centered */}
+            <div className="hidden lg:flex items-center justify-center flex-1 mx-8">
               <div className="flex items-center gap-1">
                 {navItems.map((item) => (
                   <Button
@@ -139,8 +93,10 @@ export function NavClassic() {
                     variant="ghost"
                     size="sm"
                     onClick={() => scrollToSection(item.id)}
-                    className={`relative transition-colors ${
-                      activeSection === item.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                    className={`relative transition-colors px-3 py-1 ${
+                      activeSection === item.id
+                        ? "text-primary font-semibold"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {item.label}
@@ -148,68 +104,65 @@ export function NavClassic() {
                       <motion.div
                         layoutId="activeSection"
                         className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
-                        initial={false}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
                   </Button>
                 ))}
               </div>
-
-              <div className="flex items-center gap-2 border-l border-border pl-4">
-                {/* Resume Button */}
-                <Button asChild variant="outline">
-                  <Link href="/resume.pdf" target="_blank">Résumé</Link>
-                </Button>
-
-                {/* Theme Toggle */}
-                <Button variant="ghost" size="sm" onClick={toggleTheme} className="w-9 h-9 p-0">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={theme}
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      exit={{ scale: 0, rotate: 180 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                    </motion.div>
-                  </AnimatePresence>
-                </Button>
-
-                {/* Storybook Toggle */}
-                <div className="relative">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      const pathname = window.location.pathname;
-                      router.push(pathname.startsWith('/storybook') ? '/' : '/storybook');
-                    }}
-                    className="gap-2 relative"
-                    title="Switch storytelling mode (⌘ K)"
-                  >
-                    <BookOpen className="w-4 h-4" />
-                    <span className="hidden md:inline">
-                      {window.location.pathname.startsWith('/storybook') ? 'Classic View' : 'Storybook View'}
-                    </span>
-                    <span className="md:hidden">
-                      {window.location.pathname.startsWith('/storybook') ? 'Classic' : 'Story'}
-                    </span>
-                  </Button>
-                  {/* Indicator */}
-                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full opacity-0 group-data-[active]:opacity-100" />
-                </div>
-              </div>
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="flex items-center gap-2 lg:hidden">
-              <Button variant="ghost" size="sm" onClick={toggleTheme} className="w-9 h-9 p-0">
-                {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {/* Right Actions */}
+            <div className="hidden lg:flex items-center gap-3">
+              {/* Resume */}
+              <Button asChild variant="outline" size="sm">
+                <Link href="/resume.pdf" target="_blank">
+                  Résumé
+                </Link>
               </Button>
 
-              <Button variant="ghost" size="sm" onClick={() => setIsOpen(!isOpen)} className="w-9 h-9 p-0">
+              {/* Theme Toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleTheme}
+                className="w-9 h-9 p-0"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={theme}
+                    initial={{ rotate: -180, scale: 0 }}
+                    animate={{ rotate: 0, scale: 1 }}
+                    exit={{ rotate: 180, scale: 0 }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    {theme === "dark" ? (
+                      <Sun className="w-5 h-5" />
+                    ) : (
+                      <Moon className="w-5 h-5" />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </Button>
+            </div>
+
+            {/* Mobile Buttons */}
+            <div className="flex items-center gap-2 lg:hidden">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleTheme}
+                className="w-9 h-9 p-0"
+              >
+                {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-9 h-9 p-0"
+              >
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={isOpen ? "close" : "open"}
@@ -234,7 +187,7 @@ export function NavClassic() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden bg-background/95 backdrop-blur-md border-b border-border"
+              className="lg:hidden bg-background/95 backdrop-blur-lg border-b border-border shadow-md"
             >
               <div className="container mx-auto px-4 py-4">
                 <div className="flex flex-col gap-2">
@@ -243,13 +196,13 @@ export function NavClassic() {
                       key={item.id}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
+                      transition={{ delay: index * 0.08 }}
                     >
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => scrollToSection(item.id)}
-                        className={`w-full justify-start ${
+                        className={`w-full justify-start px-3 py-2 ${
                           activeSection === item.id ? "text-primary bg-primary/10" : ""
                         }`}
                       >
@@ -258,10 +211,16 @@ export function NavClassic() {
                     </motion.div>
                   ))}
 
-                  <div className="border-t border-border mt-4 pt-4">
-                    <Button variant="ghost" size="sm" onClick={toggleMode} className="w-full justify-start">
-                      <BookOpen className="w-4 h-4 mr-2" />
-                      {mode === "classic" ? "Storybook Mode" : "Classic Mode"}
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="w-full justify-center"
+                    >
+                      <Link href="/resume.pdf" target="_blank">
+                        View Résumé
+                      </Link>
                     </Button>
                   </div>
                 </div>
@@ -271,7 +230,7 @@ export function NavClassic() {
         </AnimatePresence>
       </motion.nav>
 
-      {/* Spacer to prevent content from being hidden behind fixed navbar */}
+      {/* Spacer */}
       <div className="h-16" />
     </>
   )

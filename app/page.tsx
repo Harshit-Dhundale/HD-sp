@@ -1,8 +1,8 @@
 "use client"
 
 import { HeroClassic } from "../components/HeroClassic"
-import { SkillsSection } from "../components/SkillsSection"
-import { Certifications } from "../components/Certifications"
+import SkillsSection from "../components/SkillsSection"
+import Certifications from "../components/Certifications"
 import { ProjectsSection } from "../components/ProjectsSection"
 import { ExperienceSection } from "../components/ExperienceSection"
 import { EducationSection } from "../components/EducationSection"

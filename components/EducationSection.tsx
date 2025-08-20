@@ -7,73 +7,96 @@ import { GraduationCap, CalendarDays, MapPin, BookOpen, Award } from "lucide-rea
 
 const education = [
   {
-    id: "btech",
-    institution: "Thakur College of Engineering and Technology",
-    degree: "Bachelor of Technology",
-    field: "Computer Engineering",
-    duration: "2021 - 2025",
-    location: "Mumbai, India",
-    status: "In Progress",
-    cgpa: "8.7/10",
-    description:
-      "Pursuing comprehensive education in computer science fundamentals, software engineering, and emerging technologies. Active participation in coding competitions and technical projects.",
-    highlights: [
-      "Dean's List for Academic Excellence (3 semesters)",
-      "Lead developer for college technical fest website",
-      "Member of Computer Society and Innovation Club",
-      "Represented college in multiple hackathons and coding competitions",
-    ],
-    courses: [
-      "Data Structures & Algorithms",
-      "Database Management Systems",
-      "Software Engineering",
-      "Machine Learning",
-      "Computer Networks",
-      "Operating Systems",
-      "Web Technologies",
-      "Artificial Intelligence",
-    ],
-  },
+  "id": "btech",
+  "institution": "Vellore Institute of Technology (VIT)",
+  "degree": "Bachelor of Technology",
+  "field": "Computer Science and Engineering",
+  "duration": "2021 – 2025",
+  "location": "Bhopal, India",
+  "status": "Completed",
+  "cgpa": "8.8/10",
+  "description": "Completed a comprehensive program in Computer Science and Engineering, covering core CS fundamentals, AI/ML, cloud technologies, and scalable software systems. Gained hands-on experience through academic projects, hackathons, and internships.",
+  "highlights": [
+    "Graduated with a CGPA of 8.8/10",
+    // "Built and deployed multiple full-stack projects ",
+    // "Represented college in multiple hackathons and secured top ranks",
+    "Completed industrial internship and capstone projects demonstrating practical problem-solving skills",
+    "Part of ADVITYA 2024, VIT Bhopal’s flagship college fest, which attracted over 7,000–8,000 attendees, contributing to event coordination and technical activities",
+    "Actively contributed to the Mozilla Firefox Club and Microsoft Technical Club at VIT Bhopal as a core technical member, participating in hackathons, coding sessions, technical workshops, and collaborative knowledge-sharing events.",
+    "Recognized among the Best Performers at Solvit Hackathon 2025 for building multiple innovative web applications — including Stockly, MarketMitra, and other AI-powered solutions — within a challenging 2-day development sprint.", 
+    "Organized and coordinated intra-college tournaments as Event Coordinator for the VIT Bhopal Chess Committee",
+    // "Member of E-Cell, VIT Bhopal, contributing to entrepreneurship-driven initiatives and startup-focused events",
+    // "Actively participated in various technical and cultural events, enhancing leadership, teamwork, and networking skills",
+    
+  ],
+  "courses": [
+    "Data Structures & Algorithms",
+    "Database Management Systems",
+    "Operating Systems",
+    "Computer Networks",
+    "Object-Oriented Programming (C++)",
+    "Programming in Java",
+    "Cloud Computing",
+    "Software Engineering",
+    "Parallel & Distributed Computing",
+    "Machine Learning & AI",
+    "Computer Architecture",
+    "Computer Vision",
+    "Mobile Application Development"
+  ]
+}
+,
   {
-    id: "hsc",
-    institution: "Thakur College of Science and Commerce",
-    degree: "Higher Secondary Certificate",
-    field: "Science (PCM)",
-    duration: "2019 - 2021",
-    location: "Mumbai, India",
-    status: "Completed",
-    percentage: "92.5%",
-    description:
-      "Completed higher secondary education with focus on Physics, Chemistry, and Mathematics. Built strong analytical and problem-solving foundation.",
-    highlights: [
-      "Secured 92.5% in HSC Board Examinations",
-      "Mathematics Olympiad Regional Level Participation",
-      "Science Fair Winner - Innovation in Technology",
-      "Active member of Computer Club",
+    "id": "cbse12",
+    "institution": "Daisy Dales School",
+    "degree": "Senior Secondary Certificate (CBSE - Class XII)",
+    "field": "Science (PCM)",
+    "duration": "2021",
+    "location": "Indore, Madhya Pradesh, India",
+    "status": "Completed",
+    "percentage": "78%",
+    "description": "Completed Class XII under CBSE with a focus on Physics, Chemistry, and Mathematics, strengthening analytical, logical reasoning, and problem-solving skills.",
+    "highlights": [
+      "Achieved 78% in CBSE Class XII Board Examinations"
     ],
-    courses: ["Physics", "Chemistry", "Mathematics", "Computer Science", "English"],
+    "courses": [
+      "Physics",
+      "Chemistry",
+      "Mathematics",
+      "English",
+      "Physical Education"],
   },
-  {
-    id: "cbse10",
-    institution: "Central Board of Secondary Education",
-    degree: "Secondary School Certificate (CBSE X)",
-    field: "Science",
-    duration: "2017 - 2019",
-    location: "India",
-    status: "Completed",
-    percentage: "93%",
-    description:
-      "Completed secondary education with focus on Science and Mathematics, laying the foundation for future academic pursuits.",
-    highlights: [
-      "Science topper",
-      "School coding club lead",
-      "Active participation in academic competitions",
-    ],
-    courses: ["Science", "Mathematics", "English", "Social Studies", "Hindi"],
-  },
+{
+  "id": "cbse10",
+  "institution": "Choithram School North Campus",
+  "degree": "Secondary School Certificate (CBSE - Class X)",
+  "field": "Science",
+  "duration": "2019",
+  "location": "Indore, Madhya Pradesh, India",
+  "status": "Completed",
+  "percentage": "89%",
+  "description": "Completed Class X under CBSE with a focus on Science and Mathematics, building a strong foundation for higher academic pursuits.",
+  "highlights": [
+    "Scored 89% in CBSE Class X Board Examinations",
+    "Qualified NTSE Stage 1 – National-level scholarship examination conducted by NCERT"
+  ],
+  "courses": [
+    "Science",
+    "Mathematics",
+    "English",
+    "Social Studies",
+    "Hindi"
+  ]
+}
 ]
 
 const achievements = [
+{
+    title: "Best Performers - SolVIT Hackathon",
+    issuer: "VIT Bhopal",
+    year: "2025",
+    type: "Award",
+  },
   {
     title: "AWS Certified Cloud Practitioner",
     issuer: "Amazon Web Services",
@@ -87,17 +110,12 @@ const achievements = [
     type: "Certification",
   },
   {
-    title: "Winner - AgriTech Hackathon",
-    issuer: "TechFest Mumbai",
-    year: "2024",
-    type: "Award",
-  },
-  {
-    title: "Dean's List",
-    issuer: "Thakur College of Engineering",
-    year: "2023-24",
-    type: "Academic",
-  },
+  title: "NTSE Stage 1 Qualifier",
+  issuer: "NCERT",
+  year: "2019",
+  type: "Academic"
+  }
+,
 ]
 
 export function EducationSection() {
@@ -261,20 +279,20 @@ export function EducationSection() {
         >
           <h3 className="text-2xl font-bold mb-4">Academic Excellence</h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Maintaining high academic standards while actively engaging in practical projects, competitions, and
-            industry certifications to bridge the gap between theory and practice.
+            Maintaining strong academic performance while actively contributing to projects, hackathons, 
+    and earning industry-recognized certifications to bridge the gap between theory and practical skills.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
             <div>
-              <div className="text-2xl font-bold text-primary">8.7</div>
-              <div className="text-sm text-muted-foreground">Current CGPA</div>
+              <div className="text-2xl font-bold text-primary">8.8</div>
+              <div className="text-sm text-muted-foreground">CGPA</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-primary">3</div>
-              <div className="text-sm text-muted-foreground">Dean's List</div>
+              <div className="text-2xl font-bold text-primary">5+</div>
+              <div className="text-sm text-muted-foreground">Real-World Projects</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-primary">2</div>
+              <div className="text-2xl font-bold text-primary">3+</div>
               <div className="text-sm text-muted-foreground">Certifications</div>
             </div>
             <div>

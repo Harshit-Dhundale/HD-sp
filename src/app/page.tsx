@@ -1,7 +1,7 @@
 "use client"
 import NavClassic from "../components/NavClassic"
 import HeroClassic from "../components/HeroClassic"
-import SkillsSection from "../components/SkillsSection"
+import SkillsCards from "../../components/SkillsCards"
 import ProjectsSection from "../components/ProjectsSection"
 import ExperienceSection from "../components/ExperienceSection"
 import EducationSection from "../components/EducationSection"
@@ -21,7 +21,7 @@ export default function Home() {
       <NavClassic />
       <main className="space-y-32">
         <HeroClassic />
-        <SkillsSection />
+        <SkillsCards />
         <ProjectsSection />
         <ExperienceSection />
         <EducationSection />

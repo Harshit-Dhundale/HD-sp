@@ -1,808 +1,920 @@
 export interface Project {
-  id: string
-  title: string
-  description: string
-  longDescription?: string
-  overview?: string
-  problem?: string
-  features?: string[]
-  tags: string[]
-  tech: string[]
-  category: string
-  image: string
-  images: string[]
-  github?: string
-  live?: string
+  id: string;
+  title: string;
+  description: string;
+  longDescription?: string;
+  overview?: string;
+  problem?: string;
+  features?: string[];
+  tags: string[];
+  tech: string[];
+  category: string;
+  image: string;
+  images: string[];
+  github?: string;
+  live?: string;
   links: {
-    live?: string
-    repo?: string
-    demo?: string
-  }
-  featured: boolean
-  rank: number
-  impact: number
-  year: string
-  status: "completed" | "in-progress" | "planning"
-  achievements: string[]
-  role: string
-  teamSize?: number
-  duration?: string
-  architecture: string[]
+    live?: string;
+    repo?: string;
+    demo?: string;
+  };
+  featured: boolean;
+  rank: number;
+  impact: number;
+  year: string;
+  status: "completed" | "in-progress" | "planning";
+  achievements: string[];
+  role: string;
+  teamSize?: number;
+  duration?: string;
+  architecture: string[];
   metrics?: {
-    users?: string
-    accuracy?: string
-    performance?: string
-    revenue?: string
-  }
+    users?: string;
+    accuracy?: string;
+    performance?: string;
+    revenue?: string;
+    scalability?: string;
+  };
 }
 
 export const projects: Project[] = [
   {
     id: "farmiculture",
-    title: "Farmiculture",
-    description: "AI-powered agricultural management platform with crop monitoring and yield prediction",
-    longDescription: "A comprehensive agricultural technology platform that combines IoT sensors, machine learning, and real-time data analytics to help farmers optimize crop yields, monitor soil conditions, and make data-driven decisions.",
-    overview: "Farmiculture revolutionizes traditional farming by integrating cutting-edge AI and IoT technologies. The platform provides farmers with actionable insights to increase productivity while reducing resource waste.",
-    problem: "Traditional farming relies on guesswork and outdated practices, leading to inefficient resource usage, unpredictable yields, and environmental damage. Farmers lack access to real-time data and predictive analytics to make informed decisions.",
+    title: "FarmiCulture 🌱",
+    description:
+      "Secure multi-tenant agricultural management platform with AI-driven crop recommendations, disease detection, and e-commerce integration",
+    longDescription:
+      "FarmiCulture is a full-stack agri-tech platform that unifies farm management, AI-powered decision support, and a production-grade e-commerce system. It provides farmers with crop and fertilizer recommendations, disease detection via CNN models, and a marketplace with Razorpay integration—all deployed with CI/CD pipelines.",
+    overview:
+      "Built as an end-to-end solution for farmers and agri-SMBs, FarmiCulture integrates secure authentication, AI microservices, and a full commerce ecosystem. The platform eliminates fragmented tools by centralizing farm records, community engagement, AI insights, and order management into one reliable application.",
+    problem:
+      "Farmers face fragmented solutions: one app for farm records, another for buying inputs, another for advice. This leads to inefficiency, weak adoption, and lack of trust. They also lack AI-driven insights and secure, scalable systems for farm and business management.",
     features: [
-      "Real-time crop monitoring with IoT sensors",
-      "AI-powered yield prediction algorithms",
-      "Automated irrigation system management",
-      "Pest and disease detection using computer vision",
-      "Market price forecasting and recommendations",
-      "Soil health analysis and optimization suggestions",
-      "Weather integration and alerts",
-      "Mobile app for field workers"
+      "JWT authentication with Redis-backed OTP verification (Nodemailer)",
+      "Role-based access controls (Admin, Vendor, User)",
+      "Farm & plot management dashboards",
+      "AI-powered crop recommendation using Naive Bayes & Random Forest (~92–95% accuracy)",
+      "Fertilizer recommendation via NPK-based regression modeling",
+      "Plant disease detection using CNN models",
+      "E-commerce store with catalog, cart, and Razorpay payments",
+      "Automated invoice dispatch & failed-order cleanup jobs",
+      "Order tracking with live delivery updates",
+      "Community forum with posts and replies in real time",
+      "CI/CD pipeline with GitHub Actions, deployed on Render & Vercel",
     ],
-    tags: ["AI/ML", "IoT", "Agriculture", "React", "Python"],
-    tech: ["Python", "TensorFlow", "IoT Sensors", "React", "Node.js", "MongoDB", "Docker", "AWS"],
-    category: "Full-Stack",
+    tags: ["AI/ML", "Deep Learning", "Full-Stack", "E-Commerce", "Agriculture"],
+    tech: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Redis",
+      "Python",
+      "Flask",
+      "Docker",
+      "Tailwind CSS",
+      "Razorpay",
+      "Render",
+      "Vercel",
+      "GitHub Actions",
+    ],
+    category: "Full-Stack • AI/ML • E-Commerce",
     image: "/projects/farmiculture/cover.webp",
-    images: [
-      "/projects/farmiculture/cover.webp",
-      "/projects/farmiculture/dashboard.webp", 
-      "/projects/farmiculture/analytics.webp",
-      "/projects/farmiculture/mobile.webp"
-    ],
-    github: "https://github.com/harshit/farmiculture",
-    live: "https://farmiculture.vercel.app",
+    images: ["/projects/farmiculture/cover.webp"],
+    github: "https://github.com/Harshit-Dhundale/FarmiCulture",
+    live: "https://farmi-culture.vercel.app/",
     links: {
-      live: "https://farmiculture.vercel.app",
-      repo: "https://github.com/harshit/farmiculture",
-      demo: "https://farmiculture.vercel.app/demo"
+      live: "https://farmi-culture.vercel.app/",
+      repo: "https://github.com/Harshit-Dhundale/FarmiCulture",
     },
     featured: true,
     rank: 1,
     impact: 95,
-    year: "2024",
+    year: "2025",
     status: "completed",
-    achievements: ["90% crop yield improvement", "500+ farmers onboarded", "Winner at AgriTech Hackathon 2024", "Featured in agricultural journals"],
-    role: "Full-Stack Developer & ML Engineer",
-    teamSize: 4,
-    duration: "6 months",
-    architecture: ["Microservices Architecture", "Event-Driven Design", "IoT Integration Layer", "ML Pipeline", "Real-time Data Processing"],
+    achievements: [
+      "Achieved 92–95% accuracy in ML crop prediction",
+      "Implemented production-grade Razorpay integration with order lifecycle",
+      "Built fully containerized AI microservices in Python using Docker",
+      "Deployed backend + ML services on Render, frontend on Vercel with CI/CD",
+    ],
+    role: "Full-Stack Developer & ML Engineer (Individual Project)",
+    teamSize: 1,
+    duration: "3 months",
+    architecture: [
+      "Microservices for AI/ML",
+      "REST API with Node.js & Express",
+      "Dockerized Python ML services",
+      "Role-based authentication with JWT + Redis OTP",
+      "CI/CD with GitHub Actions",
+      "React frontend with Tailwind UI",
+    ],
     metrics: {
-      users: "500+ farmers",
-      accuracy: "90% yield prediction",
-      performance: "Real-time monitoring",
-      revenue: "Improved farm revenue by 40%"
-    }
-  },
-  {
-    id: "stockly",
-    title: "Stockly",
-    description: "Real-time stock market analytics with AI-powered trading insights",
-    longDescription: "Advanced financial technology platform providing real-time market data, technical analysis, and AI-powered trading recommendations. Includes portfolio management, risk assessment, and social trading features.",
-    overview: "Stockly transforms stock market analysis by providing real-time insights and AI-driven predictions. The platform democratizes advanced trading tools for retail investors.",
-    problem: "Individual investors lack access to sophisticated trading tools and real-time analytics, leaving them at a disadvantage compared to institutional traders with expensive Bloomberg terminals.",
-    features: [
-      "Real-time market data streaming",
-      "AI-powered trading signal generation",
-      "Advanced technical indicator analysis",
-      "Portfolio optimization recommendations",
-      "Risk assessment and management tools",
-      "Social trading and community insights",
-      "Automated alert system",
-      "Mobile trading interface"
-    ],
-    tags: ["React", "Python", "FastAPI", "WebSockets", "PostgreSQL", "Docker"],
-    tech: ["React", "TypeScript", "Python", "FastAPI", "WebSockets", "PostgreSQL", "Redis", "Docker", "AWS"],
-    category: "FinTech",
-    image: "/projects/stockly/cover.webp",
-    images: [
-      "/projects/stockly/cover.webp",
-      "/projects/stockly/dashboard.webp",
-      "/projects/stockly/analytics.webp",
-      "/projects/stockly/mobile.webp"
-    ],
-    github: "https://github.com/harshit/stockly",
-    live: "https://stockly-app.vercel.app",
-    links: {
-      live: "https://stockly-app.vercel.app",
-      repo: "https://github.com/harshit/stockly",
-      demo: "https://stockly-app.vercel.app/demo"
+      users: "Multi-tenant farmer onboarding supported",
+      accuracy: "92–95% crop prediction accuracy",
+      performance: "Optimized API + microservices deployment",
+      revenue: "Supports secure Razorpay-based transactions",
     },
-    featured: true,
-    rank: 2,
-    impact: 92,
-    year: "2024",
-    status: "completed",
-    achievements: ["Real-time data processing", "95% prediction accuracy", "10K+ active users"],
-    role: "Lead Developer",
-    teamSize: 3,
-    duration: "4 months",
-    architecture: ["Real-time Processing", "Microservices", "WebSocket Communication"],
-    metrics: {
-      users: "10K+ active traders",
-      accuracy: "95% prediction accuracy",
-      performance: "Sub-100ms latency",
-      revenue: "$1.2M+ in trading volume"
-    }
-  },
-  {
-    id: "marketmitra",
-    title: "MarketMitra",
-    description: "B2B marketplace connecting wholesalers and retailers with smart logistics",
-    longDescription: "Comprehensive B2B e-commerce platform that connects wholesalers with retailers, featuring intelligent inventory management, automated logistics, and AI-powered demand forecasting.",
-    overview: "MarketMitra streamlines B2B commerce by eliminating middlemen and optimizing supply chains. The platform reduces costs while improving efficiency for small to medium businesses.",
-    problem: "Traditional B2B trade involves multiple intermediaries, leading to inflated prices, slow transactions, and poor inventory visibility. Small retailers struggle to access competitive wholesale pricing.",
-    features: [
-      "Direct wholesaler-retailer marketplace",
-      "AI-powered demand forecasting",
-      "Automated logistics coordination",
-      "Real-time inventory synchronization",
-      "Smart pricing optimization",
-      "Multi-tier user management",
-      "Integrated payment processing",
-      "Analytics and reporting dashboard"
-    ],
-    tags: ["Next.js", "Node.js", "Express", "MongoDB", "Stripe", "AWS"],
-    tech: ["Next.js", "TypeScript", "Node.js", "Express", "MongoDB", "Stripe", "AWS", "Docker", "Redis"],
-    category: "E-commerce",
-    image: "/projects/marketmitra/cover.webp",
-    images: [
-      "/projects/marketmitra/cover.webp",
-      "/projects/marketmitra/marketplace.webp",
-      "/projects/marketmitra/logistics.webp",
-      "/projects/marketmitra/analytics.webp"
-    ],
-    github: "https://github.com/harshit/marketmitra",
-    live: "https://marketmitra.com",
-    links: {
-      live: "https://marketmitra.com",
-      repo: "https://github.com/harshit/marketmitra",
-      demo: "https://marketmitra.com/demo"
-    },
-    featured: true,
-    rank: 3,
-    impact: 88,
-    year: "2023",
-    status: "completed",
-    achievements: ["$2M+ transaction volume", "200+ businesses onboarded", "40% reduction in logistics costs"],
-    role: "Full-Stack Developer",
-    teamSize: 5,
-    duration: "8 months",
-    architecture: ["Multi-tenant", "Microservices", "Payment Gateway Integration"],
-    metrics: {
-      users: "200+ businesses",
-      performance: "40% cost reduction",
-      revenue: "$2M+ transaction volume",
-      accuracy: "99.5% order accuracy"
-    }
   },
   {
     id: "codeconflux",
-    title: "CodeConflux",
-    description: "Real-time collaborative code editor with AI assistance and multi-language support",
-    longDescription: "Advanced collaborative development environment featuring real-time code editing, AI-powered code suggestions, integrated testing, and support for multiple programming languages. Includes voice chat, screen sharing, and project management tools.",
-    overview: "CodeConflux revolutionizes remote pair programming by providing seamless real-time collaboration with AI assistance. Perfect for distributed teams and coding interviews.",
-    problem: "Remote development teams struggle with code collaboration tools that have high latency, poor synchronization, and lack integrated communication features.",
+    title: "CodeConflux 👩‍💻",
+    description:
+      "Real-time collaborative code editor with AI support, Docker-based sandboxing, and multi-user synchronization.",
+    longDescription:
+      "CodeConflux is a full-stack real-time collaborative code editor enabling multiple users to write, run, and debug code simultaneously. It features AI-assisted code suggestions powered by Gemini, secure containerized execution with Docker, and live synchronization using WebSockets. Each session is room-based, ensuring seamless teamwork and contextual code collaboration.",
+    overview:
+      "Built to enhance coding collaboration and pair programming, CodeConflux provides an IDE-like experience in the browser with AI-assisted features and secure multi-language execution.",
+    problem:
+      "Traditional code editors lack real-time collaboration and secure multi-language execution environments. Developers often rely on separate tools for collaboration and execution, which reduces productivity.",
     features: [
-      "Real-time collaborative editing",
-      "AI-powered code suggestions",
-      "Multi-language syntax support",
-      "Integrated voice and video chat",
-      "Live code execution environment",
-      "Version control integration",
-      "Screen sharing capabilities",
-      "Project management tools"
+      "Real-time multi-user code collaboration (Socket.IO)",
+      "Support for Python, C++, Java, and JavaScript execution",
+      "Secure Docker-based sandboxed execution",
+      "AI-powered code suggestions with Google Gemini",
+      "Unique room IDs for session-based collaboration",
+      "Live editing with user presence indicators",
+      "Vite-powered React frontend for high performance",
     ],
-    tags: ["React", "Node.js", "Socket.io", "Monaco Editor", "Docker", "WebRTC"],
-    tech: ["React", "TypeScript", "Node.js", "Socket.io", "Monaco Editor", "Docker", "WebRTC", "Redis", "AWS"],
-    category: "Developer Tools",
+    tags: [
+      "Full Stack",
+      "Collaboration",
+      "AI",
+      "WebSockets",
+      "Docker",
+      "Real-time",
+    ],
+    tech: [
+      "React",
+      "Vite",
+      "Socket.IO",
+      "Node.js",
+      "Express",
+      "Docker",
+      "Google Gemini",
+    ],
+    category: "Full-Stack • AI • Real-Time",
     image: "/projects/codeconflux/cover.webp",
-    images: [
-      "/projects/codeconflux/cover.webp",
-      "/projects/codeconflux/editor.webp",
-      "/projects/codeconflux/collaboration.webp",
-      "/projects/codeconflux/features.webp"
-    ],
-    github: "https://github.com/harshit/codeconflux",
-    live: "https://codeconflux.app",
+    images: ["/projects/codeconflux/cover.webp"],
+    github: "https://github.com/yourusername/repo-name",
+    live: "https://coderelo-realtimecodeeditor-withaisupport.onrender.com",
     links: {
-      live: "https://codeconflux.app",
-      repo: "https://github.com/harshit/codeconflux",
-      demo: "https://codeconflux.app/demo"
+      live: "https://coderelo-realtimecodeeditor-withaisupport.onrender.com",
+      repo: "https://github.com/yourusername/repo-name",
     },
     featured: true,
-    rank: 4,
+    rank: 3,
+    impact: 9,
+    year: "2024",
+    status: "completed",
+    achievements: [
+      "Implemented secure code execution via Docker",
+      "Integrated AI code assistance with Gemini 1.5 Flash",
+      "Built a scalable WebSocket-based collaboration system",
+    ],
+    role: "Full-Stack Developer (Architecture, Backend, and AI Integration)",
+    teamSize: 1,
+    duration: "3 weeks",
+    architecture: [
+      "React (Vite)",
+      "Node.js + Express",
+      "Socket.IO",
+      "Docker",
+      "Google Gemini API",
+    ],
+    metrics: {
+      users: "10+ concurrent users per session",
+      performance: "Low-latency collaboration under 200ms sync",
+    },
+  },
+  {
+    id: "stocktau",
+    title: "StockTau 📊",
+    description:
+      "A virtual stock trading platform offering real-time market data, portfolio management, and risk-control tools for practicing trading strategies safely.",
+    longDescription:
+      "StockTau is a full-stack virtual trading platform built to simulate the real stock market experience. It enables users to create portfolios, buy and sell stocks, and track their performance using live market data. With integrated risk management tools, market insights, and segment-wise market status, it offers a complete environment for learners and enthusiasts to practice trading without financial risk.",
+    overview:
+      "StockTau bridges the gap between learning and live trading by providing a practice environment with real-time data. It integrates Fyres & NSE APIs, a secure backend, and an intuitive React frontend to ensure both accuracy and usability.",
+    problem:
+      "Beginner traders often struggle to practice trading safely. Existing solutions are either too basic or lack real-time accuracy, preventing effective learning. There was a need for a platform that combines real-world data with risk management features for safe and practical learning.",
+    features: [
+      "Virtual trading with portfolio creation and stock transactions",
+      "Real-time stock market data using Fyres & NSE APIs",
+      "Risk management tools (stop-loss, exposure control)",
+      "Market status across all trading segments in one dashboard",
+      "Top gainers and losers with detailed insights",
+      "Educational resources like tutorials, articles, and trading strategies",
+    ],
+    tags: ["Finance", "Trading", "Full-Stack", "Simulation"],
+    tech: ["React", "Node.js", "Express", "MongoDB", "Fyres API", "NSE API"],
+    category: "Full-Stack • Finance • Simulation",
+    image: "/projects/stocktau/cover.webp",
+    images: ["/projects/stocktau/cover.webp"],
+    github: "https://github.com/Harshit-Dhundale/StockTau",
+    links: {
+      repo: "https://github.com/Harshit-Dhundale/StockTau",
+    },
+    featured: false,
+    rank: 2,
     impact: 85,
     year: "2024",
     status: "completed",
-    achievements: ["Sub-50ms latency", "Support for 10+ languages", "1000+ concurrent users"],
-    role: "Full-Stack Developer",
-    teamSize: 2,
-    duration: "5 months",
-    architecture: ["Real-time Synchronization", "WebRTC", "Container Orchestration"],
+    achievements: [
+      "Integrated live market data from NSE and Fyres APIs",
+      "Developed a risk management system with stop-loss functionality",
+      "Created an interactive portfolio management system with analytics",
+    ],
+    role: "Full-Stack Developer (Individual Project)",
+    teamSize: 1,
+    duration: "1 month",
+    architecture: [
+      "Frontend: React-based SPA",
+      "Backend: Node.js + Express REST APIs",
+      "Database: MongoDB",
+      "External APIs: Fyres API, NSE API",
+      "Authentication with JWT",
+    ],
     metrics: {
-      users: "1000+ concurrent users",
-      performance: "Sub-50ms latency",
-      accuracy: "99.9% sync accuracy",
-      revenue: "Enterprise adoption"
-    }
-  },
-  {
-    id: "stockify",
-    title: "Stockify",
-    description: "Inventory management system with predictive analytics and automated reordering",
-    longDescription: "Smart inventory management solution for retail businesses featuring predictive analytics, automated reordering, supplier management, and comprehensive reporting dashboard.",
-    overview: "Stockify eliminates stockouts and overstock situations using machine learning to predict demand patterns and automate inventory management for retail businesses.",
-    problem: "Retail businesses struggle with inventory management, leading to stockouts that hurt sales or overstocking that ties up capital. Manual inventory tracking is prone to errors and inefficiencies.",
-    features: [
-      "Predictive demand forecasting",
-      "Automated reorder point calculation",
-      "Real-time inventory tracking",
-      "Supplier management system",
-      "Multi-location inventory sync",
-      "Custom alert notifications",
-      "Comprehensive analytics dashboard",
-      "Mobile inventory scanner"
-    ],
-    tags: ["Flutter", "Firebase", "Python", "scikit-learn", "Google Cloud"],
-    tech: ["Flutter", "Dart", "Firebase", "Python", "scikit-learn", "Google Cloud", "TensorFlow", "Cloud Functions"],
-    category: "Mobile App",
-    image: "/projects/stockify/cover.webp",
-    images: [
-      "/projects/stockify/cover.webp",
-      "/projects/stockify/dashboard.webp",
-      "/projects/stockify/analytics.webp",
-      "/projects/stockify/mobile.webp"
-    ],
-    github: "https://github.com/harshit/stockify",
-    live: "https://play.google.com/store/apps/details?id=com.stockify",
-    links: {
-      live: "https://play.google.com/store/apps/details?id=com.stockify",
-      repo: "https://github.com/harshit/stockify",
-      demo: "https://stockify-demo.web.app"
+      users: "Supports multiple users with secure authentication",
+      performance: "Handles real-time stock price updates efficiently",
     },
-    featured: true,
-    rank: 5,
-    impact: 82,
-    year: "2023",
-    status: "completed",
-    achievements: ["30% reduction in stockouts", "25% inventory cost savings", "Play Store 4.8★ rating"],
-    role: "Mobile Developer & Data Scientist",
-    teamSize: 3,
-    duration: "4 months",
-    architecture: ["Mobile-First", "Cloud Functions", "ML Pipeline"],
-    metrics: {
-      users: "5000+ businesses",
-      accuracy: "85% demand prediction",
-      performance: "30% stockout reduction",
-      revenue: "25% cost savings"
-    }
-  },
-  {
-    id: "eva",
-    title: "Eva Period Tracker",
-    description: "AI-powered menstrual health app with personalized insights and community support",
-    longDescription: "Comprehensive women's health application providing period tracking, symptom analysis, fertility insights, and personalized health recommendations. Features community support and educational resources.",
-    overview: "Eva empowers women with AI-driven health insights, accurate period predictions, and a supportive community. The app promotes better understanding of menstrual health patterns.",
-    problem: "Women lack reliable tools to track and understand their menstrual health patterns. Existing apps provide generic advice without personalized insights or community support.",
-    features: [
-      "AI-powered cycle prediction",
-      "Symptom tracking and analysis",
-      "Fertility window calculation",
-      "Personalized health insights",
-      "Community support forums",
-      "Educational health content",
-      "Privacy-first data handling",
-      "Export health reports"
-    ],
-    tags: ["React Native", "Node.js", "MongoDB", "TensorFlow", "Socket.io"],
-    tech: ["React Native", "TypeScript", "Node.js", "MongoDB", "TensorFlow", "Socket.io", "AWS", "Expo"],
-    category: "Healthcare",
-    image: "/projects/eva/cover.webp",
-    images: [
-      "/projects/eva/cover.webp",
-      "/projects/eva/tracking.webp",
-      "/projects/eva/insights.webp",
-      "/projects/eva/community.webp"
-    ],
-    github: "https://github.com/harshit/eva-period-tracker",
-    live: "https://eva-tracker.app",
-    links: {
-      live: "https://eva-tracker.app",
-      repo: "https://github.com/harshit/eva-period-tracker",
-      demo: "https://eva-tracker.app/demo"
-    },
-    featured: true,
-    rank: 6,
-    impact: 80,
-    year: "2023",
-    status: "completed",
-    achievements: ["50K+ downloads", "95% prediction accuracy", "Featured in health magazines"],
-    role: "Full-Stack Developer",
-    teamSize: 4,
-    duration: "6 months",
-    architecture: ["Cross-platform", "Real-time Messaging", "ML Predictions"],
-    metrics: {
-      users: "50K+ women",
-      accuracy: "95% cycle prediction",
-      performance: "4.9★ app rating",
-      revenue: "Health impact recognition"
-    }
-  },
-  {
-    id: "clumpcoder",
-    title: "ClumpCoder",
-    description: "Competitive programming platform with automated judging and performance analytics",
-    longDescription: "Advanced competitive programming platform featuring automated code judging, performance analytics, contest management, and comprehensive learning resources for coding enthusiasts.",
-    overview: "ClumpCoder democratizes competitive programming by providing a comprehensive platform for learning, practicing, and competing in coding challenges with real-time feedback.",
-    problem: "Aspiring competitive programmers lack access to quality practice platforms with automated judging, detailed analytics, and structured learning paths.",
-    features: [
-      "Automated code judging system",
-      "Real-time contest hosting",
-      "Performance analytics dashboard",
-      "Problem difficulty classification",
-      "Learning path recommendations",
-      "Community discussion forums",
-      "Multiple language support",
-      "Editorial and solution explanations"
-    ],
-    tags: ["Django", "React", "Docker", "PostgreSQL", "Redis", "Celery"],
-    tech: ["Django", "Python", "React", "TypeScript", "Docker", "PostgreSQL", "Redis", "Celery", "AWS"],
-    category: "Education",
-    image: "/projects/clumpcoder/cover.webp",
-    images: [
-      "/projects/clumpcoder/cover.webp",
-      "/projects/clumpcoder/problems.webp",
-      "/projects/clumpcoder/contest.webp",
-      "/projects/clumpcoder/analytics.webp"
-    ],
-    github: "https://github.com/harshit/clumpcoder",
-    live: "https://clumpcoder.com",
-    links: {
-      live: "https://clumpcoder.com",
-      repo: "https://github.com/harshit/clumpcoder",
-      demo: "https://clumpcoder.com/demo"
-    },
-    featured: true,
-    rank: 7,
-    impact: 78,
-    year: "2023",
-    status: "completed",
-    achievements: ["5000+ registered users", "100+ coding contests", "Integration with major judges"],
-    role: "Backend Developer",
-    teamSize: 3,
-    duration: "5 months",
-    architecture: ["Queue Processing", "Microservices", "Container Orchestration"],
-    metrics: {
-      users: "5000+ programmers",
-      performance: "Sub-5s judging",
-      accuracy: "99.9% judge accuracy",
-      revenue: "Educational impact"
-    }
-  },
-  {
-    id: "pdf-extractor",
-    title: "PDF Data Extractor",
-    description: "AI-powered document processing tool with OCR and structured data extraction",
-    longDescription: "Intelligent document processing solution that extracts structured data from PDFs using OCR technology, natural language processing, and machine learning algorithms.",
-    overview: "PDF Data Extractor automates document processing workflows by intelligently extracting and structuring data from various PDF formats using advanced AI techniques.",
-    problem: "Manual data extraction from PDFs is time-consuming and error-prone. Businesses need automated solutions to process large volumes of documents efficiently.",
-    features: [
-      "Advanced OCR text extraction",
-      "Table and form recognition",
-      "Multi-language document support",
-      "Structured data output formats",
-      "Batch processing capabilities",
-      "Custom template training",
-      "API integration support",
-      "Quality validation checks"
-    ],
-    tags: ["Python", "OpenCV", "Tesseract", "spaCy", "Flask", "Docker"],
-    tech: ["Python", "OpenCV", "Tesseract", "spaCy", "Flask", "Docker", "TensorFlow", "AWS"],
-    category: "AI/ML",
-    image: "/projects/pdf-extractor/cover.webp",
-    images: [
-      "/projects/pdf-extractor/cover.webp",
-      "/projects/pdf-extractor/extraction.webp",
-      "/projects/pdf-extractor/results.webp",
-      "/projects/pdf-extractor/api.webp"
-    ],
-    github: "https://github.com/harshit/pdf-extractor",
-    live: "https://pdf-extractor.herokuapp.com",
-    links: {
-      live: "https://pdf-extractor.herokuapp.com",
-      repo: "https://github.com/harshit/pdf-extractor",
-      demo: "https://pdf-extractor.herokuapp.com/demo"
-    },
-    featured: true,
-    rank: 8,
-    impact: 75,
-    year: "2023",
-    status: "completed",
-    achievements: ["98% text extraction accuracy", "Support for 20+ languages", "Processing 1000+ docs/day"],
-    role: "ML Engineer",
-    teamSize: 2,
-    duration: "3 months",
-    architecture: ["ML Pipeline", "OCR Processing", "API-First"],
-    metrics: {
-      users: "200+ organizations",
-      accuracy: "98% extraction accuracy",
-      performance: "1000+ docs/day",
-      revenue: "Enterprise adoption"
-    }
-  },
-  {
-    id: "congkong",
-    title: "CongKong",
-    description: "Social media analytics platform with sentiment analysis and trend prediction",
-    longDescription: "Comprehensive social media analytics platform that monitors brand mentions, analyzes sentiment, predicts trends, and provides actionable insights for marketing teams.",
-    overview: "CongKong transforms social media data into actionable business insights using advanced analytics and AI to help brands understand their online presence and audience sentiment.",
-    problem: "Brands struggle to monitor and analyze their social media presence across multiple platforms, missing important conversations and trends that impact their reputation.",
-    features: [
-      "Multi-platform social monitoring",
-      "Real-time sentiment analysis",
-      "Trend prediction algorithms",
-      "Competitor analysis tools",
-      "Automated reporting system",
-      "Influencer identification",
-      "Crisis detection alerts",
-      "Custom dashboard creation"
-    ],
-    tags: ["React", "Python", "Kafka", "Elasticsearch", "MongoDB", "AWS"],
-    tech: ["React", "TypeScript", "Python", "Kafka", "Elasticsearch", "MongoDB", "AWS", "Docker", "Redis"],
-    category: "Analytics",
-    image: "/projects/congkong/cover.webp",
-    images: [
-      "/projects/congkong/cover.webp",
-      "/projects/congkong/dashboard.webp",
-      "/projects/congkong/sentiment.webp",
-      "/projects/congkong/trends.webp"
-    ],
-    github: "https://github.com/harshit/congkong",
-    live: "https://congkong.analytics",
-    links: {
-      live: "https://congkong.analytics",
-      repo: "https://github.com/harshit/congkong",
-      demo: "https://congkong.analytics/demo"
-    },
-    featured: false,
-    rank: 9,
-    impact: 72,
-    year: "2022",
-    status: "completed",
-    achievements: ["Real-time sentiment analysis", "Multi-platform monitoring", "Enterprise clients"],
-    role: "Data Engineer",
-    teamSize: 4,
-    duration: "4 months",
-    architecture: ["Stream Processing", "Big Data", "Real-time Analytics"],
-    metrics: {
-      users: "50+ enterprises",
-      performance: "Real-time processing",
-      accuracy: "92% sentiment accuracy",
-      revenue: "SaaS revenue model"
-    }
-  },
-  {
-    id: "quantum-circuit",
-    title: "Quantum Circuit Simulator",
-    description: "Educational quantum computing simulator with visual circuit builder",
-    longDescription: "Interactive quantum computing simulator designed for educational purposes, featuring a visual circuit builder, quantum gate library, and step-by-step execution visualization.",
-    overview: "Quantum Circuit Simulator makes quantum computing accessible to students and researchers through intuitive visual tools and educational resources.",
-    problem: "Quantum computing education lacks accessible tools for students to visualize and experiment with quantum circuits without expensive hardware or complex software.",
-    features: [
-      "Visual quantum circuit builder",
-      "Comprehensive gate library",
-      "Step-by-step execution visualization",
-      "Quantum state visualization",
-      "Educational tutorials and examples",
-      "Circuit sharing and collaboration",
-      "Performance benchmarking",
-      "Export to quantum hardware formats"
-    ],
-    tags: ["Python", "Qiskit", "React", "D3.js", "WebGL"],
-    tech: ["Python", "Qiskit", "React", "TypeScript", "D3.js", "WebGL", "FastAPI", "Docker"],
-    category: "Education",
-    image: "/projects/quantum-circuit/cover.png",
-    images: [
-      "/projects/quantum-circuit/cover.png",
-      "/projects/quantum-circuit/builder.png",
-      "/projects/quantum-circuit/visualization.png",
-      "/projects/quantum-circuit/tutorials.png"
-    ],
-    github: "https://github.com/harshit/quantum-simulator",
-    live: "https://quantum-sim.vercel.app",
-    links: {
-      live: "https://quantum-sim.vercel.app",
-      repo: "https://github.com/harshit/quantum-simulator",
-      demo: "https://quantum-sim.vercel.app/tutorial"
-    },
-    featured: false,
-    rank: 10,
-    impact: 70,
-    year: "2022",
-    status: "completed",
-    achievements: ["Used in 5+ universities", "Open-source community", "Educational impact award"],
-    role: "Quantum Software Developer",
-    teamSize: 2,
-    duration: "6 months",
-    architecture: ["Quantum Computing", "Visualization", "Educational Framework"],
-    metrics: {
-      users: "2000+ students",
-      performance: "Real-time simulation",
-      accuracy: "University adoption",
-      revenue: "Open-source impact"
-    }
   },
   {
     id: "ecommerce-chatbot",
-    title: "E-commerce AI Chatbot",
-    description: "Conversational AI for customer support with product recommendations",
-    longDescription: "Advanced conversational AI system for e-commerce platforms providing customer support, product recommendations, order tracking, and personalized shopping assistance.",
-    overview: "E-commerce AI Chatbot enhances customer experience by providing instant, intelligent support and personalized product recommendations using natural language processing.",
-    problem: "E-commerce businesses struggle with customer support scalability and providing personalized shopping experiences, leading to lost sales and poor customer satisfaction.",
+    title: "ShopAssist AI 🛍️",
+    description:
+      "Container-ready chatbot answering product, stock, and order queries for a fictitious clothing retailer.",
+    longDescription:
+      "A full-stack, interview-assignment chatbot that ingests a 1M-row dataset into MongoDB and answers customer queries about products, inventory, and order status. The system prioritizes database pipelines for speed and falls back to an LLM (Groq compound-beta) for natural-language responses. Includes a React dashboard with chat window, conversation history, and full Docker-compose setup.",
+    overview:
+      "The chatbot demonstrates end-to-end integration of FastAPI, MongoDB, and Groq LLM with a Next.js frontend. It was built as a 2-day assignment for Think41’s second interview round, focusing on scalability, clean architecture, and developer-friendly setup.",
+    problem:
+      "E-commerce support teams face repetitive customer queries like stock availability and order tracking. Manual handling leads to inefficiency and delayed responses.",
     features: [
-      "Natural language understanding",
-      "Product recommendation engine",
-      "Order tracking integration",
-      "Multi-language support",
-      "Sentiment analysis for support",
-      "Live agent handoff",
-      "Purchase intent detection",
-      "Analytics and insights dashboard"
+      "Ingest ~1M rows from CSVs into MongoDB",
+      "Aggregation pipelines for top products, stock left, and order status",
+      "Natural language fallback via Groq LLM",
+      "Multi-user conversation history schema",
+      "React UI with chat window, conversation list, and input box",
+      "Full Docker-compose setup (Mongo + FastAPI + Frontend)",
+      "Auto-generated FastAPI docs for all APIs",
     ],
-    tags: ["Python", "NLP", "TensorFlow", "DialogFlow", "Node.js"],
-    tech: ["Python", "TensorFlow", "DialogFlow", "Node.js", "MongoDB", "Redis", "AWS", "WebSockets"],
-    category: "AI/ML",
+    tags: ["FastAPI", "MongoDB", "Groq LLM", "Next.js", "React", "Docker"],
+    tech: [
+      "Python",
+      "FastAPI",
+      "MongoDB",
+      "Groq compound-beta",
+      "Next.js 14",
+      "React 18",
+      "Docker",
+    ],
+    category: "AI/ML • Conversational AI • Full-Stack",
     image: "/projects/ecommerce-chatbot/cover.png",
-    images: [
-      "/projects/ecommerce-chatbot/cover.png",
-      "/projects/ecommerce-chatbot/chat.png",
-      "/projects/ecommerce-chatbot/recommendations.png",
-      "/projects/ecommerce-chatbot/analytics.png"
-    ],
-    github: "https://github.com/harshit/ecommerce-chatbot",
-    live: "https://ecommerce-bot.demo.app",
+    images: ["/projects/ecommerce-chatbot/cover.png"],
+    github: "https://github.com/Harshit-Dhundale/Think41_2_Interview",
+    live: "https://github.com/Harshit-Dhundale/Think41_2_Interview",
     links: {
-      live: "https://ecommerce-bot.demo.app",
-      repo: "https://github.com/harshit/ecommerce-chatbot",
-      demo: "https://ecommerce-bot.demo.app/chat"
+      repo: "https://github.com/Harshit-Dhundale/Think41_2_Interview",
+      demo: "https://github.com/Harshit-Dhundale/Think41_2_Interview",
     },
     featured: false,
     rank: 11,
-    impact: 68,
-    year: "2022",
+    impact: 0,
+    year: "2025",
     status: "completed",
-    achievements: ["90% query resolution", "35% increase in sales", "Multi-language support"],
-    role: "AI Developer",
-    teamSize: 3,
-    duration: "4 months",
-    architecture: ["NLP Pipeline", "Conversational AI", "Integration APIs"],
+    achievements: [
+      "Completed in 2 days as part of interview assignment",
+      "Handled ~1M dataset rows in MongoDB",
+      "Seamless DB-first + LLM-fallback design",
+    ],
+    role: "Full-Stack Developer",
+    teamSize: 1,
+    duration: "2 days",
+    architecture: [
+      "FastAPI backend with chat and conversation APIs",
+      "MongoDB pipelines for structured queries",
+      "Groq compound-beta LLM integration",
+      "Next.js + React UI with Context for state",
+      "Docker-compose orchestration",
+    ],
     metrics: {
-      users: "100+ e-commerce sites",
-      accuracy: "90% query resolution",
-      performance: "35% sales increase",
-      revenue: "Client satisfaction"
-    }
+      users: "Demo project (fictitious e-commerce site)",
+      accuracy: "DB queries precise, LLM fallback tested",
+      performance: "Docker setup runs locally in <1 min",
+      revenue: "Interview project — no commercial metrics",
+    },
   },
   {
-    id: "realtime-chat",
-    title: "Real-time Chat Application",
-    description: "Scalable messaging platform with end-to-end encryption and media sharing",
-    longDescription: "Secure messaging platform featuring real-time communication, end-to-end encryption, file sharing, group chats, and presence indicators built for scalability.",
-    overview: "Real-time Chat Application provides secure, scalable messaging with advanced features like encryption and media sharing for modern communication needs.",
-    problem: "Existing messaging platforms lack proper security, scalability, or are controlled by large corporations. Users need private, secure communication tools.",
+    id: "store-rating-platform",
+    title: "RateMyStore ⭐",
+    description:
+      "A full-stack platform where users can rate stores (1–5 stars), with distinct capabilities for admins, store owners, and normal users. Built using Next.js 13 (App Router) and Supabase with secure row-level access control.",
+    longDescription:
+      "This project is a modern store-rating platform with multi-role access control. Admins can manage stores and users while viewing global analytics, store owners can monitor ratings for their stores, and normal users can browse stores, submit, and update ratings. The app leverages Next.js 13 App Router with React Server Components, Supabase for Postgres, Auth, and Storage, and implements Row-Level Security (RLS) for secure multi-tenant data isolation. Tailwind CSS and Shadcn/UI ensure consistent, accessible UI. The project also includes CI/CD with GitHub Actions and testing setup with Vitest and React Testing Library.",
+    overview:
+      "A role-based rating system with modern full-stack best practices. Features dashboards for admins and store owners, rating and browsing system for users, and secure backend enforced by RLS policies.",
+    problem:
+      "Traditional rating platforms often lack clear multi-role isolation and secure backend enforcement. This platform solves those gaps by leveraging Supabase RLS policies, service/admin keys, and carefully designed schema relations to ensure robust access control.",
     features: [
-      "End-to-end encryption",
-      "Real-time message delivery",
-      "File and media sharing",
-      "Group chat management",
-      "User presence indicators",
-      "Message search and history",
-      "Custom emoji and reactions",
-      "Cross-platform synchronization"
+      "Role-based access (Admin, Store Owner, User)",
+      "JWT Authentication via Supabase",
+      "Row-Level Security enforced per role",
+      "Admin dashboard for global analytics and user/store management",
+      "Store Owner dashboard with per-store ratings & performance metrics",
+      "User features: signup, browse stores, submit/update ratings",
+      "Average rating per store (materialized view)",
+      "Filtering & browsing functionality",
+      "Next.js App Router (RSC + API Routes)",
+      "CI/CD setup with GitHub Actions",
+      "Testing with Vitest, RTL, and Cypress scaffold",
     ],
-    tags: ["Node.js", "Socket.io", "React", "MongoDB", "Redis"],
-    tech: ["Node.js", "Socket.io", "React", "TypeScript", "MongoDB", "Redis", "WebRTC", "Docker"],
-    category: "Communication",
-    image: "/projects/realtime-chat/cover.png",
-    images: [
-      "/projects/realtime-chat/cover.png",
-      "/projects/realtime-chat/interface.png",
-      "/projects/realtime-chat/groups.png",
-      "/projects/realtime-chat/security.png"
+    tags: [
+      "Next.js",
+      "Supabase",
+      "Full-Stack",
+      "RLS",
+      "TypeScript",
+      "Tailwind",
     ],
-    github: "https://github.com/harshit/realtime-chat",
-    live: "https://chat-app-demo.vercel.app",
+    tech: [
+      "Next.js 13 (App Router)",
+      "React 18",
+      "TypeScript",
+      "Supabase (Postgres + Auth + Storage)",
+      "Tailwind CSS",
+      "Shadcn/UI",
+      "Lucide Icons",
+      "zod + React Hook Form",
+      "Vitest + React Testing Library",
+      "Cypress",
+      "GitHub Actions",
+    ],
+    category: "Full-Stack • Security • Web",
+    image: "/projects/storerating/main.png",
+    images: ["/projects/storerating/main.png"],
+    github: "https://github.com/your-org/store-rating-platform",
+    live: "", // Vercel deployment link can go here
     links: {
-      live: "https://chat-app-demo.vercel.app",
-      repo: "https://github.com/harshit/realtime-chat",
-      demo: "https://chat-app-demo.vercel.app/guest"
+      repo: "https://github.com/your-org/store-rating-platform",
+      demo: "Demo link (if deployed on Vercel)",
+    },
+    featured: true,
+    rank: 5,
+    impact: 9,
+    year: "2025",
+    status: "completed",
+    achievements: [
+      "Implemented secure row-level access with Supabase RLS",
+      "Designed multi-role dashboards (Admin, Store Owner, User)",
+      "Built modern Next.js 13 App Router + RSC architecture",
+      "Integrated CI/CD with GitHub Actions for testing & linting",
+      "Created reusable UI with Shadcn/UI & Tailwind CSS",
+    ],
+    role: "Full-Stack Developer (architecture, backend RLS, frontend dashboards)",
+    teamSize: 1,
+    duration: "2 weeks",
+    architecture: [
+      "Next.js App Router (RSC + API routes)",
+      "Supabase Postgres with Auth & Storage",
+      "Row-Level Security Policies",
+      "Materialized views for analytics",
+      "CI/CD with GitHub Actions",
+    ],
+    metrics: {
+      users: "Supports Admins, Store Owners, and Users with isolated access",
+      performance: "RLS ensures low-latency per-role isolation",
+    },
+  },
+  {
+    id: "real-time-chat-app",
+    title: "ChatterBox RT 💬",
+    description:
+      "WebSocket-based real-time chat backend with offline message buffering, guaranteed message ordering, and REST APIs for chat history retrieval.",
+    longDescription:
+      "This project is a real-time chat backend system built with Node.js, Express, and WebSocket. It enables instant messaging between users with features like offline message buffering, message acknowledgments, and guaranteed ordering using async mutex locks. The system also provides REST endpoints for retrieving chat history and status, along with a minimal React frontend for demonstration purposes.",
+    overview:
+      "Designed to showcase robust WebSocket communication, this backend system ensures reliable messaging with offline support, acknowledgments, and chat history APIs, making it suitable for scalable chat applications.",
+    problem:
+      "Most basic chat backends fail to handle offline delivery, ordering guarantees, and robust reconnection gracefully. This project solves these gaps with in-memory storage and mutex-controlled operations.",
+    features: [
+      "Real-time messaging via WebSocket (ws library)",
+      "Offline message buffering with auto-delivery on reconnection",
+      "Guaranteed message ordering with async mutex locks",
+      "Message acknowledgments (ACK responses with IDs)",
+      "Chat history retrieval via REST API",
+      "Thread-safe concurrent operations",
+      "Comprehensive logging with emoji indicators",
+      "Minimal React frontend for testing and demonstration",
+    ],
+    tags: [
+      "WebSocket",
+      "Backend",
+      "Real-time",
+      "Node.js",
+      "Express",
+      "Messaging",
+    ],
+    tech: [
+      "Node.js",
+      "Express",
+      "WebSocket (ws)",
+      "async-mutex",
+      "React (frontend demo)",
+    ],
+    category: "Backend • Real-Time • System Design",
+    image: "/projects/realtime-chat/cover.png",
+    images: ["/projects/realtime-chat/cover.png"],
+    github: "https://github.com/Harshit-Dhundale/Real-Time-Chat-Application",
+    live: "", // no deployed backend link provided
+    links: {
+      repo: "https://github.com/Harshit-Dhundale/Real-Time-Chat-Application",
+      demo: "Demo video available (link can be added here)",
     },
     featured: false,
-    rank: 12,
-    impact: 66,
-    year: "2022",
+    rank: 4,
+    impact: 8,
+    year: "2025",
     status: "completed",
-    achievements: ["10K+ concurrent users", "End-to-end encryption", "Sub-100ms latency"],
-    role: "Full-Stack Developer",
-    teamSize: 2,
-    duration: "3 months",
-    architecture: ["Real-time Communication", "Security-First", "Scalable Infrastructure"],
+    achievements: [
+      "Implemented offline message buffering and auto-delivery",
+      "Ensured guaranteed message ordering with async-mutex",
+      "Developed REST API for chat history retrieval",
+      "Built robust logging and reconnection handling system",
+    ],
+    role: "Backend Developer (Architecture, WebSocket & REST APIs)",
+    teamSize: 1,
+    duration: "1.5 weeks",
+    architecture: [
+      "Node.js",
+      "Express",
+      "WebSocket (ws)",
+      "async-mutex",
+      "React frontend (demo)",
+    ],
     metrics: {
-      users: "10K+ concurrent users",
-      performance: "Sub-100ms latency",
-      accuracy: "99.9% message delivery",
-      revenue: "Personal project"
-    }
+      users: "Supports multiple concurrent users with separate chat streams",
+      performance: "Low latency delivery with guaranteed ordering",
+    },
+  },
+
+  {
+    id: "stockly",
+    title: "Stockly 📦",
+    description:
+      "Admin panel for retailers to manage inventory, orders, and sales analytics.",
+    longDescription:
+      "Stockly is the admin-facing dashboard of our hackathon project. It enables vendors and store managers to track inventory, manage stock levels, process orders, and analyze sales trends. Integrated with MarketMitra, it provides a seamless end-to-end retail solution.",
+    overview:
+      "Designed as the inventory and sales management backbone, Stockly connects retailers with their customers by keeping product data, orders, and analytics in sync. It ensures low-stock alerts, order tracking, and real-time analytics.",
+    problem:
+      "Small retailers struggle with inventory mismanagement and lack of digital tools for monitoring sales trends. They require an intuitive platform to track stock and integrate with customer-facing systems.",
+    features: [
+      "Real-time inventory management",
+      "Order tracking and fulfillment",
+      "Sales and revenue analytics",
+      "Low-stock alerts and dead stock tracking",
+      "Razorpay integration for payments",
+    ],
+    tags: ["E-Commerce", "Full-Stack", "Hackathon", "Analytics"],
+    tech: ["React", "Node.js", "Express", "MongoDB", "Razorpay", "Vercel"],
+    category: "Full-Stack • Hackathon • Analytics",
+    image: "/projects/stockly/cover.webp",
+    images: ["/projects/stockly/cover.webp"],
+    github: "https://github.com/Harshit-Dhundale/MarketMitra-and-Stockly",
+    live: "https://stockly-mu.vercel.app/",
+    links: {
+      live: "https://stockly-mu.vercel.app/",
+      repo: "https://github.com/Harshit-Dhundale/MarketMitra-and-Stockly",
+    },
+    featured: false,
+    rank: 3,
+    impact: 85,
+    year: "2024",
+    status: "completed",
+    achievements: [
+      "Awarded Best Performer in hackathon with MarketMitra",
+      "Implemented real-time inventory & analytics dashboard",
+      "End-to-end sync with customer-facing MarketMitra platform",
+    ],
+    role: "Backend & Dashboard Developer",
+    teamSize: 4,
+    duration: "2 days (Hackathon)",
+    architecture: [
+      "React admin dashboard",
+      "Node.js + Express backend",
+      "MongoDB for inventory management",
+      "REST APIs for MarketMitra integration",
+    ],
+    metrics: {
+      users: "Vendor-side management panel",
+      performance: "Supports real-time API sync with MarketMitra",
+      revenue: "Tracks revenue analytics with Razorpay",
+    },
   },
   {
-    id: "water-tracker",
-    title: "Hydration Tracking App",
-    description: "Smart water intake tracker with personalized recommendations and health insights",
-    longDescription: "Intelligent hydration tracking application that monitors water intake, provides personalized recommendations based on activity and weather, and offers health insights.",
-    overview: "Hydration Tracking App promotes healthy hydration habits through smart tracking, personalized recommendations, and gamified experiences.",
-    problem: "People struggle to maintain proper hydration levels throughout the day, lacking awareness of their water intake and personalized hydration needs.",
+    id: "marketmitra",
+    title: "MarketMitra 🛒",
+    description:
+      "Client-side marketplace for retailers with secure checkout, product browsing, and order management.",
+    longDescription:
+      "MarketMitra is the customer-facing platform of our full-stack hackathon project. It enables end-users to browse inventory, place orders, and complete secure transactions using Razorpay. The UI focuses on simplicity and reliability to ensure seamless shopping for customers.",
+    overview:
+      "Designed as the marketplace interface for retailers and customers, MarketMitra ensures fast product search, secure checkout, and scalable performance. It integrates tightly with Stockly (Admin Panel) via REST APIs to fetch inventory and manage orders in real time.",
+    problem:
+      "Retailers often lack modern, reliable e-commerce interfaces for customers, resulting in poor user adoption. Customers need a user-friendly system that connects directly with backend inventory management.",
     features: [
-      "Smart water intake tracking",
-      "Personalized hydration goals",
-      "Weather-based recommendations",
-      "Activity level integration",
-      "Reminder notifications",
-      "Health insights and trends",
-      "Gamification elements",
-      "Wearable device sync"
+      "Product browsing with quick search",
+      "Cart and checkout system",
+      "Razorpay payment gateway integration",
+      "Order history tracking",
+      "Real-time inventory sync from Stockly",
     ],
-    tags: ["Flutter", "Firebase", "ML Kit", "Health APIs"],
-    tech: ["Flutter", "Dart", "Firebase", "ML Kit", "Health APIs", "Cloud Functions", "Google Fit"],
-    category: "Healthcare",
+    tags: ["E-Commerce", "Full-Stack", "Hackathon"],
+    tech: ["React", "Node.js", "Express", "MongoDB", "Razorpay", "Vercel"],
+    category: "Full-Stack • Hackathon • E-Commerce",
+    image: "/projects/marketmitra/cover.webp",
+    images: ["/projects/marketmitra/cover.webp"],
+    github: "https://github.com/Harshit-Dhundale/MarketMitra-and-Stockly",
+    live: "https://marketmitra.vercel.app/",
+    links: {
+      live: "https://marketmitra.vercel.app/",
+      repo: "https://github.com/Harshit-Dhundale/MarketMitra-and-Stockly",
+    },
+    featured: false,
+    rank: 2,
+    impact: 80,
+    year: "2024",
+    status: "completed",
+    achievements: [
+      "Built in 2 days during hackathon, awarded Best Performer",
+      "Successfully integrated real-time APIs with Stockly Admin Panel",
+      "Delivered production-ready Razorpay checkout flow",
+    ],
+    role: "Frontend + Full-Stack Developer",
+    teamSize: 4,
+    duration: "2 days (Hackathon)",
+    architecture: [
+      "React frontend with REST API integration",
+      "Node.js + Express backend",
+      "MongoDB for order management",
+      "Razorpay for payments",
+    ],
+    metrics: {
+      users: "Customer-side marketplace",
+      performance: "Real-time inventory sync with backend",
+      revenue: "Supports online payments via Razorpay",
+    },
+  },
+
+  {
+    id: "hydration-tracker",
+    title: "HydraTrack 💧",
+    description:
+      "Full-stack hydration tracker with logging, history, streaks, and data export",
+    longDescription:
+      "A modern hydration tracking application built with Next.js and MongoDB. The app lets users log water intake, track daily progress, review history, monitor streaks, and export their data. Designed as a full-stack demo project that evolved into a production-ready hydration tracker.",
+    overview:
+      "The Hydration Tracking Application helps users maintain healthy hydration habits with smart logging, streak tracking, progress insights, and multi-user support.",
+    problem:
+      "People often underestimate or forget their daily water intake, leading to dehydration. Most hydration apps are either too simple (lacking analytics) or too bloated. A balance was needed: fast, reliable, and insightful tracking.",
+    features: [
+      "Log water intake (manual entry or quick-add presets)",
+      "Configurable daily hydration goals",
+      "Daily progress visualization (rings, totals)",
+      "7-day & 30-day history views with badges",
+      "Streak tracking (current & longest)",
+      "Aggregated stats (average, best day, success rate)",
+      "Multi-user authentication with secure sessions",
+      "Demo mode with auto-expiring test accounts",
+      "Export data as CSV or JSON",
+    ],
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "MongoDB",
+      "React Query",
+      "Tailwind",
+      "Node.js",
+    ],
+    tech: [
+      "Next.js App Router",
+      "TypeScript",
+      "MongoDB Atlas",
+      "React Query",
+      "Tailwind / shadcn/ui",
+      "Node.js API Layer",
+    ],
+    category: "Full-Stack • Health Tech • Utility",
     image: "/projects/water-tracker/cover.png",
     images: [
       "/projects/water-tracker/cover.png",
-      "/projects/water-tracker/tracking.png",
-      "/projects/water-tracker/insights.png",
-      "/projects/water-tracker/goals.png"
     ],
-    github: "https://github.com/harshit/hydration-tracker",
-    live: "https://play.google.com/store/apps/details?id=com.hydration",
+    github: "https://github.com/Harshit-Dhundale/Water-Intake-Tracker",
+    live: "https://hydration-web.vercel.app",
     links: {
-      live: "https://play.google.com/store/apps/details?id=com.hydration",
-      repo: "https://github.com/harshit/hydration-tracker",
-      demo: "https://hydration-web.vercel.app"
+      live: "https://hydration-web.vercel.app",
+      repo: "https://github.com/Harshit-Dhundale/Water-Intake-Tracker",
+      demo: "https://hydration-web.vercel.app/demo",
     },
     featured: false,
     rank: 13,
-    impact: 65,
-    year: "2022",
+    impact: 70,
+    year: "2023",
     status: "completed",
-    achievements: ["Health app of the month", "100K+ downloads", "Integration with wearables"],
-    role: "Mobile Developer",
-    teamSize: 2,
-    duration: "2 months",
-    architecture: ["Mobile-First", "Health Integration", "Smart Notifications"],
-    metrics: {
-      users: "100K+ downloads",
-      performance: "Health improvement",
-      accuracy: "4.7★ rating",
-      revenue: "Health impact"
-    }
-  },
-  {
-    id: "todo-slack",
-    title: "Slack Todo Integration",
-    description: "Productivity bot for Slack with task management and team collaboration features",
-    longDescription: "Advanced Slack bot that enhances team productivity through intelligent task management, deadline tracking, progress reporting, and seamless team collaboration features.",
-    overview: "Slack Todo Integration streamlines team productivity by bringing advanced task management directly into Slack workflows with intelligent automation.",
-    problem: "Teams using Slack for communication struggle to manage tasks and deadlines effectively, often switching between multiple tools and losing productivity.",
-    features: [
-      "Slash command task creation",
-      "Deadline tracking and reminders",
-      "Team task assignment",
-      "Progress reporting dashboards",
-      "Integration with calendar apps",
-      "Automated daily standups",
-      "Project milestone tracking",
-      "Custom workflow automation"
+    achievements: [
+      "Implemented streak logic with timezone support",
+      "Built full authentication + secure sessions",
+      "Added data export (CSV & JSON) feature",
     ],
-    tags: ["Node.js", "Slack API", "MongoDB", "Cron Jobs"],
-    tech: ["Node.js", "TypeScript", "Slack API", "MongoDB", "Cron Jobs", "Express", "Redis"],
-    category: "Productivity",
-    image: "/projects/todo-slack/cover.png",
-    images: [
-      "/projects/todo-slack/cover.png",
-      "/projects/todo-slack/commands.png",
-      "/projects/todo-slack/dashboard.png",
-      "/projects/todo-slack/reports.png"
-    ],
-    github: "https://github.com/harshit/slack-todo-bot",
-    live: "https://slack.com/apps/A123456789",
-    links: {
-      live: "https://slack.com/apps/A123456789",
-      repo: "https://github.com/harshit/slack-todo-bot",
-      demo: "https://todo-slack-demo.herokuapp.com"
-    },
-    featured: false,
-    rank: 14,
-    impact: 64,
-    year: "2021",
-    status: "completed",
-    achievements: ["1000+ teams using", "Slack App Directory", "5-star rating"],
-    role: "Bot Developer",
+    role: "Full-Stack Developer",
     teamSize: 1,
     duration: "2 months",
-    architecture: ["Bot Framework", "Webhook Integration", "Task Automation"],
+    architecture: [
+      "Next.js Full-Stack",
+      "Serverless API Routes",
+      "MongoDB Atlas Persistence",
+    ],
     metrics: {
-      users: "1000+ teams",
-      performance: "Productivity boost",
-      accuracy: "5★ rating",
-      revenue: "Freemium model"
-    }
+      users: "Demo + multi-user support",
+      performance: "Optimized Next.js build for fast loads",
+      accuracy: "Timezone-aware hydration summaries",
+      revenue: "Open-source learning/demo project",
+    },
   },
   {
-    id: "stock-suite",
-    title: "Stock Analysis Suite",
-    description: "Comprehensive stock market analysis tool with technical indicators and portfolio tracking",
-    longDescription: "Professional-grade stock analysis platform featuring advanced technical indicators, portfolio tracking, risk analysis, and automated investment strategies.",
-    overview: "Stock Analysis Suite provides professional-grade financial analysis tools to individual investors, democratizing advanced market research capabilities.",
-    problem: "Individual investors lack access to sophisticated stock analysis tools and comprehensive market research, limiting their investment decision-making capabilities.",
+    id: "todo-summary-app",
+    title: "TaskWise AI ✅",
+    description:
+      "AI-powered to-do app with Slack integration and Supabase backend",
+    longDescription:
+      "A full-stack task management application that lets users create, view, edit, and delete todos, then generate AI-powered summaries of all pending tasks using Google Gemini. The summaries are displayed inside the app and automatically posted to a Slack channel via Webhooks, making it ideal for personal productivity and team workflows.",
+    overview:
+      "Todo Summary App combines CRUD task management with AI-generated insights and Slack integration to improve productivity and reduce context switching.",
+    problem:
+      "Traditional to-do apps lack AI assistance and team collaboration features. Users often need to manually summarize or communicate tasks across platforms, leading to inefficiency.",
     features: [
-      "Advanced technical indicators",
-      "Portfolio performance tracking",
-      "Risk analysis and metrics",
-      "Automated screening tools",
-      "Backtesting capabilities",
-      "Market sentiment analysis",
-      "Custom alert system",
-      "Export and reporting tools"
+      "CRUD Todos: create, edit, delete, and view tasks",
+      "Detail view for each task",
+      "AI Summaries of pending tasks (Google Gemini gemini-2.0-flash)",
+      "Slack integration via Incoming Webhooks",
+      "On-site AI summary display in the UI",
+      "Responsive, modern UI with Tailwind CSS",
+      "Supabase-backed persistent storage",
     ],
-    tags: ["Python", "Pandas", "Plotly", "Alpha Vantage API", "Streamlit"],
-    tech: ["Python", "Pandas", "Plotly", "Alpha Vantage API", "Streamlit", "NumPy", "Scikit-learn"],
-    category: "FinTech",
-    image: "/projects/stock-suite/cover.webp",
-    images: [
-      "/projects/stock-suite/cover.webp",
-      "/projects/stock-suite/analysis.webp",
-      "/projects/stock-suite/portfolio.webp",
-      "/projects/stock-suite/charts.webp"
+    tags: [
+      "React",
+      "Express.js",
+      "Supabase",
+      "Slack API",
+      "Google Gemini",
+      "TailwindCSS",
     ],
-    github: "https://github.com/harshit/stock-analysis-suite",
-    live: "https://stock-suite.streamlit.app",
+    tech: [
+      "React.js",
+      "Express.js",
+      "Supabase (Postgres)",
+      "Google Gemini API",
+      "Slack Incoming Webhooks",
+      "Tailwind CSS",
+      "Node.js",
+    ],
+    category: "AI/ML • Productivity • Full-Stack",
+    image: "/projects/todo-slack/cover.png",
+    images: ["/projects/todo-slack/cover.png"],
+    github: "https://github.com/Harshit-Dhundale/Todo-Summary-App",
+    live: "https://todo-summary-app.vercel.app",
     links: {
-      live: "https://stock-suite.streamlit.app",
-      repo: "https://github.com/harshit/stock-analysis-suite",
-      demo: "https://stock-suite.streamlit.app/demo"
+      live: "https://todo-summary-app.vercel.app",
+      repo: "https://github.com/Harshit-Dhundale/Todo-Summary-App",
+      demo: "https://youtu.be/your-demo-video",
     },
     featured: false,
     rank: 15,
-    impact: 62,
-    year: "2021",
+    impact: 70,
+    year: "2025",
     status: "completed",
-    achievements: ["Financial blogger featured", "Open-source popularity", "Investment club adoption"],
-    role: "Data Analyst",
+    achievements: [
+      "Integrated free-tier LLM (Gemini 2.0 Flash) for real-time summaries",
+      "Successful Slack workflow automation",
+      "Built in just 2 days as a rapid prototyping project",
+    ],
+    role: "Full Stack Developer",
     teamSize: 1,
-    duration: "3 months",
-    architecture: ["Data Analytics", "Visualization", "API Integration"],
+    duration: "2 days",
+    architecture: [
+      "Client-server REST API",
+      "Supabase (Postgres) storage",
+      "AI Summarization via Google Gemini",
+      "Slack Webhook integration",
+    ],
     metrics: {
-      users: "3000+ investors",
-      performance: "Real-time analysis",
-      accuracy: "Professional tools",
-      revenue: "Open-source impact"
-    }
+      users: "Prototype stage (personal use + demo-ready)",
+      performance: "Sub-second CRUD ops, summary generation in ~2s",
+      accuracy: "Gemini summaries contextual & task-specific",
+      revenue: "Non-commercial prototype",
+    },
+  },
+  // {
+  //   id: "clumpcoder",
+  //   title: "ClumpCoder",
+  //   description: "Competitive programming platform with automated judging and performance analytics",
+  //   longDescription: "Advanced competitive programming platform featuring automated code judging, performance analytics, contest management, and comprehensive learning resources for coding enthusiasts.",
+  //   overview: "ClumpCoder democratizes competitive programming by providing a comprehensive platform for learning, practicing, and competing in coding challenges with real-time feedback.",
+  //   problem: "Aspiring competitive programmers lack access to quality practice platforms with automated judging, detailed analytics, and structured learning paths.",
+  //   features: [
+  //     "Automated code judging system",
+  //     "Real-time contest hosting",
+  //     "Performance analytics dashboard",
+  //     "Problem difficulty classification",
+  //     "Learning path recommendations",
+  //     "Community discussion forums",
+  //     "Multiple language support",
+  //     "Editorial and solution explanations"
+  //   ],
+  //   tags: ["Django", "React", "Docker", "PostgreSQL", "Redis", "Celery"],
+  //   tech: ["Django", "Python", "React", "TypeScript", "Docker", "PostgreSQL", "Redis", "Celery", "AWS"],
+  //   category: "Education",
+  //   image: "/projects/clumpcoder/cover.webp",
+  //   images: [
+  //     "/projects/clumpcoder/cover.webp"
+  //   ],
+  //   github: "https://github.com/harshit/clumpcoder",
+  //   live: "https://clumpcoder.com",
+  //   links: {
+  //     live: "https://clumpcoder.com",
+  //     repo: "https://github.com/harshit/clumpcoder",
+  //     demo: "https://clumpcoder.com/demo"
+  //   },
+  //   featured: true,
+  //   rank: 7,
+  //   impact: 78,
+  //   year: "2023",
+  //   status: "completed",
+  //   achievements: ["5000+ registered users", "100+ coding contests", "Integration with major judges"],
+  //   role: "Backend Developer",
+  //   teamSize: 3,
+  //   duration: "5 months",
+  //   architecture: ["Queue Processing", "Microservices", "Container Orchestration"],
+  //   metrics: {
+  //     users: "5000+ programmers",
+  //     performance: "Sub-5s judging",
+  //     accuracy: "99.9% judge accuracy",
+  //     revenue: "Educational impact"
+  //   }
+  // },
+  {
+  "id": "pdf-details-extractor",
+  "title": "DocuParse 📄",
+  "description": "Automated tool to extract Name, Phone Number, and Address from PDF documents.",
+  "longDescription": "A full-stack project that extracts specific user details (Name, Phone Number, Address) from PDFs and displays them on a React frontend. The backend uses Python and PyMuPDF for reliable text parsing, while Node.js/Express powers the API layer. Initially designed as a lightweight solution, with future plans to integrate NLP models like spaCy or Transformers for advanced entity recognition.",
+  "overview": "This project automates PDF parsing by extracting structured details without manual effort. It demonstrates frontend-backend integration and AI-readiness for scaling into advanced document intelligence.",
+  "problem": "Manual extraction of key fields from PDFs is error-prone and time-consuming. A lightweight, automated system was needed to extract details quickly and reliably.",
+  "features": [
+    "Extracts Name, Phone Number, and Address from PDFs",
+    "Uses PyMuPDF for fast and reliable parsing",
+    "React-based frontend to display extracted details",
+    "Node.js + Express backend API integration",
+    "Planned NLP/AI model support for advanced entity recognition",
+    "Cross-platform support via browser UI"
+  ],
+  "tags": ["Python", "React", "Node.js", "Express", "PyMuPDF"],
+  "tech": [
+    "Python",
+    "PyMuPDF",
+    "React",
+    "Node.js",
+    "Express"
+  ],
+  "category": "AI/ML • Automation • Python",
+  "image": "/projects/pdf-extractor/cover.webp",
+  "images": ["/projects/pdf-extractor/cover.webp"],
+  "github": "https://github.com/Harshit-Dhundale/PDF-Details-Extractor",
+  "live": "",
+  "links": {
+    "live": "",
+    "repo": "https://github.com/Harshit-Dhundale/PDF-Details-Extractor"
+  },
+  "featured": false,
+  "rank": 8,
+  "impact": 60,
+  "year": "2023",
+  "status": "completed",
+  "achievements": [
+    "Successfully extracted structured fields (Name, Phone, Address) from multiple PDFs",
+    "Demonstrated frontend-backend integration",
+    "Showcased scope for NLP/AI expansion"
+  ],
+  "role": "Full Stack Developer",
+  "teamSize": 1,
+  "duration": "2 weeks",
+  "architecture": ["Frontend-Backend Integration", "PDF Parsing Layer"],
+  "metrics": {
+    "accuracy": "High for standard PDFs",
+    "performance": "Processes PDFs instantly",
+    "scalability": "Planned AI/NLP improvements"
   }
-]
+}
+,
+  // {
+  //   id: "congkong",
+  //   title: "CongKong",
+  //   description: "Social media analytics platform with sentiment analysis and trend prediction",
+  //   longDescription: "Comprehensive social media analytics platform that monitors brand mentions, analyzes sentiment, predicts trends, and provides actionable insights for marketing teams.",
+  //   overview: "CongKong transforms social media data into actionable business insights using advanced analytics and AI to help brands understand their online presence and audience sentiment.",
+  //   problem: "Brands struggle to monitor and analyze their social media presence across multiple platforms, missing important conversations and trends that impact their reputation.",
+  //   features: [
+  //     "Multi-platform social monitoring",
+  //     "Real-time sentiment analysis",
+  //     "Trend prediction algorithms",
+  //     "Competitor analysis tools",
+  //     "Automated reporting system",
+  //     "Influencer identification",
+  //     "Crisis detection alerts",
+  //     "Custom dashboard creation"
+  //   ],
+  //   tags: ["React", "Python", "Kafka", "Elasticsearch", "MongoDB", "AWS"],
+  //   tech: ["React", "TypeScript", "Python", "Kafka", "Elasticsearch", "MongoDB", "AWS", "Docker", "Redis"],
+  //   category: "Analytics",
+  //   image: "/projects/congkong/cover.webp",
+  //   images: [
+  //     "/projects/congkong/cover.webp"
+  //   ],
+  //   github: "https://github.com/harshit/congkong",
+  //   live: "https://congkong.analytics",
+  //   links: {
+  //     live: "https://congkong.analytics",
+  //     repo: "https://github.com/harshit/congkong",
+  //     demo: "https://congkong.analytics/demo"
+  //   },
+  //   featured: false,
+  //   rank: 9,
+  //   impact: 72,
+  //   year: "2022",
+  //   status: "completed",
+  //   achievements: ["Real-time sentiment analysis", "Multi-platform monitoring", "Enterprise clients"],
+  //   role: "Data Engineer",
+  //   teamSize: 4,
+  //   duration: "4 months",
+  //   architecture: ["Stream Processing", "Big Data", "Real-time Analytics"],
+  //   metrics: {
+  //     users: "50+ enterprises",
+  //     performance: "Real-time processing",
+  //     accuracy: "92% sentiment accuracy",
+  //     revenue: "SaaS revenue model"
+  //   }
+  // },
+  // {
+  //   id: "quantum-circuit",
+  //   title: "Quantum Circuit Simulator",
+  //   description: "Educational quantum computing simulator with visual circuit builder",
+  //   longDescription: "Interactive quantum computing simulator designed for educational purposes, featuring a visual circuit builder, quantum gate library, and step-by-step execution visualization.",
+  //   overview: "Quantum Circuit Simulator makes quantum computing accessible to students and researchers through intuitive visual tools and educational resources.",
+  //   problem: "Quantum computing education lacks accessible tools for students to visualize and experiment with quantum circuits without expensive hardware or complex software.",
+  //   features: [
+  //     "Visual quantum circuit builder",
+  //     "Comprehensive gate library",
+  //     "Step-by-step execution visualization",
+  //     "Quantum state visualization",
+  //     "Educational tutorials and examples",
+  //     "Circuit sharing and collaboration",
+  //     "Performance benchmarking",
+  //     "Export to quantum hardware formats"
+  //   ],
+  //   tags: ["Python", "Qiskit", "React", "D3.js", "WebGL"],
+  //   tech: ["Python", "Qiskit", "React", "TypeScript", "D3.js", "WebGL", "FastAPI", "Docker"],
+  //   category: "Education",
+  //   image: "/projects/quantum-circuit/cover.png",
+  //   images: [
+  //     "/projects/quantum-circuit/cover.png"
+  //   ],
+  //   github: "https://github.com/harshit/quantum-simulator",
+  //   live: "https://quantum-sim.vercel.app",
+  //   links: {
+  //     live: "https://quantum-sim.vercel.app",
+  //     repo: "https://github.com/harshit/quantum-simulator",
+  //     demo: "https://quantum-sim.vercel.app/tutorial"
+  //   },
+  //   featured: false,
+  //   rank: 10,
+  //   impact: 70,
+  //   year: "2022",
+  //   status: "completed",
+  //   achievements: ["Used in 5+ universities", "Open-source community", "Educational impact award"],
+  //   role: "Quantum Software Developer",
+  //   teamSize: 2,
+  //   duration: "6 months",
+  //   architecture: ["Quantum Computing", "Visualization", "Educational Framework"],
+  //   metrics: {
+  //     users: "2000+ students",
+  //     performance: "Real-time simulation",
+  //     accuracy: "University adoption",
+  //     revenue: "Open-source impact"
+  //   }
+  // },
+
+];
 
 export const projectCategories = {
   All: projects,
@@ -817,6 +929,6 @@ export const projectCategories = {
   "Developer Tools": projects.filter((p) => p.category === "Developer Tools"),
   Communication: projects.filter((p) => p.category === "Communication"),
   Productivity: projects.filter((p) => p.category === "Productivity"),
-}
+};
 
-export const featuredProjects = projects.filter((p) => p.featured)
+export const featuredProjects = projects.filter((p) => p.featured);

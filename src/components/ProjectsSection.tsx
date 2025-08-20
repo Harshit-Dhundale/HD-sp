@@ -3,27 +3,11 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { featuredProjects, allProjects } from "../data/projects"
-import LightboxGallery from "./LightboxGallery"
 
 export default function ProjectsSection() {
   const [showAll, setShowAll] = useState(false)
-  const [selectedProject, setSelectedProject] = useState<string | null>(null)
-  const [lightboxOpen, setLightboxOpen] = useState(false)
 
   const displayProjects = showAll ? allProjects : featuredProjects
-
-  const openLightbox = (projectId: string) => {
-    setSelectedProject(projectId)
-    setLightboxOpen(true)
-  }
-
-  const selectedProjectData = allProjects.find((p) => p.id === selectedProject)
-  const galleryItems =
-    selectedProjectData?.images.map((img) => ({
-      src: img,
-      type: "image" as const,
-      alt: selectedProjectData.title,
-    })) || []
 
   return (
     <section id="projects" className="section-padding py-20">
@@ -52,27 +36,12 @@ export default function ProjectsSection() {
               className="project-card group"
             >
               {/* Project Image */}
-              <div
-                className="relative h-48 mb-4 rounded-lg overflow-hidden cursor-pointer"
-                onClick={() => openLightbox(project.id)}
-              >
+              <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
                 <img
                   src={project.images[0] || "/placeholder.svg"}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/20 backdrop-blur-sm rounded-full p-3">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </svg>
-                  </div>
-                </div>
               </div>
 
               {/* Project Info */}
@@ -132,9 +101,6 @@ export default function ProjectsSection() {
             {showAll ? "Show Less" : `View All ${allProjects.length} Projects`}
           </button>
         </div>
-
-        {/* Lightbox */}
-        <LightboxGallery items={galleryItems} isOpen={lightboxOpen} onClose={() => setLightboxOpen(false)} />
       </div>
     </section>
   )

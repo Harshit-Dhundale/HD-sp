@@ -1,52 +1,49 @@
 "use client"
 
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useState, useCallback } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import { 
-  X, ExternalLink, Github, ChevronDown, ChevronRight, Copy, 
-  ChevronLeft, ChevronRight as ChevronRightIcon, Star, Users,
-  TrendingUp, Clock, Award, Share2
+  X, ExternalLink, Github, Star, Share2, Copy, ChevronLeft, ChevronRight
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
-import LightboxGallery from "./LightboxGallery"
+import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import Image from "next/image"
 import { useHashDialog } from "@/hooks/useHashDialog"
+import { useCopyFeedback } from "@/hooks/useCopyFeedback"
 import type { Project } from "@/data/projects"
-import posthog from "posthog-js"
-import { useToast } from "@/hooks/use-toast"
+import { cn } from "@/lib/utils"
 
 interface ModalProjectProps {
   projects: Project[]
 }
 
 export function ModalProject({ projects }: ModalProjectProps) {
-  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    features: true,
-    architecture: false,
-    achievements: false,
-  })
   const [githubStars, setGithubStars] = useState<number | null>(null)
-  const { toast } = useToast()
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const { isOpen, activeId, closeDialog } = useHashDialog({
     hashKey: 'project',
-    onOpen: (id) => {
+    onOpen: async (id) => {
       const project = projects.find(p => p.id === id)
       if (project) {
-        posthog.capture('project_open', { slug: project.id })
+        try {
+          if (typeof window !== "undefined" && window.posthog) {
+            window.posthog.capture('project_open', { slug: project.id })
+          }
+        } catch (err) {
+          console.error("PostHog error:", err)
+        }
       }
     }
   })
 
   const project = activeId ? projects.find(p => p.id === activeId) : null
 
-  const toggleSection = (section: string) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }))
-  }
+  // Reset image index when project changes
+  useEffect(() => {
+    setCurrentImageIndex(0)
+  }, [project?.id])
 
   // Fetch GitHub stars
   useEffect(() => {
@@ -59,25 +56,49 @@ export function ModalProject({ projects }: ModalProjectProps) {
     }
   }, [project])
 
-  const copyProjectLink = () => {
+  const { copyToClipboard } = useCopyFeedback()
+
+  const copyAndToast = async (label: string, url: string) => {
+    await copyToClipboard(url)
+    if (typeof window !== "undefined" && window.posthog) {
+      try {
+        window.posthog.capture('copy_url', { type: label.toLowerCase().replace(' ', '_') })
+      } catch (err) {
+        console.error("PostHog error:", err)
+      }
+    }
+  }
+
+  const handleShare = async () => {
     const url = `${window.location.origin}#project=${project?.id}`
-    navigator.clipboard.writeText(url)
-    toast({ title: "Copied to clipboard ✅" })
-  }
-
-  const copyDemoLink = () => {
-    if (project?.links.live) {
-      navigator.clipboard.writeText(project.links.live)
-      toast({ title: "Copied to clipboard ✅" })
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: project?.title || 'Project',
+          url: url
+        })
+      } catch (err) {
+        // Fallback to copy
+        await copyAndToast("Project URL", url)
+      }
+    } else {
+      // Fallback to copy
+      await copyAndToast("Project URL", url)
     }
   }
 
-  const copyRepoLink = () => {
-    if (project?.links.repo) {
-      navigator.clipboard.writeText(project.links.repo)
-      toast({ title: "Copied to clipboard ✅" })
+  const nextImage = useCallback(() => {
+    if (project?.images) {
+      setCurrentImageIndex((prev) => (prev + 1) % project.images.length)
     }
-  }
+  }, [project?.images])
+
+  const prevImage = useCallback(() => {
+    if (project?.images) {
+      setCurrentImageIndex((prev) => (prev === 0 ? project.images.length - 1 : prev - 1))
+    }
+  }, [project?.images])
 
   if (!project) return null
 
@@ -107,10 +128,10 @@ export function ModalProject({ projects }: ModalProjectProps) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-6xl transform overflow-hidden rounded-2xl bg-background border border-border text-left align-middle shadow-xl transition-all max-h-[90vh] overflow-y-auto">
+              <Dialog.Panel className="w-full max-w-6xl transform overflow-hidden rounded-2xl bg-background border border-border text-left align-middle shadow-xl transition-all max-h-[calc(100vh-2rem)] flex flex-col">
                 
-                {/* Header with Close Button */}
-                <div className="sticky top-0 z-10 flex items-center justify-between p-4 bg-background/80 backdrop-blur-sm border-b border-border">
+                {/* Header Row - Fixed Height */}
+                <div className="flex items-center justify-between p-6 bg-background/80 backdrop-blur-sm border-b border-border h-12 flex-shrink-0">
                   <div className="flex items-center gap-3">
                     <Badge variant="secondary">{project.category}</Badge>
                     <span className="text-sm text-muted-foreground">{project.year}</span>
@@ -123,8 +144,9 @@ export function ModalProject({ projects }: ModalProjectProps) {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={copyProjectLink}
+                      onClick={handleShare}
                       className="gap-2"
+                      aria-label="Share project"
                     >
                       <Share2 className="w-4 h-4" />
                       Share
@@ -139,234 +161,215 @@ export function ModalProject({ projects }: ModalProjectProps) {
                   </div>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-8 p-8">
-                  {/* Left: Gallery */}
-                  <div className="space-y-6">
-                    <LightboxGallery slug={project.id} />
-                    
-                    {/* Action Buttons */}
-                    <div className="grid grid-cols-2 gap-3">
-                      {project.links.live && (
-                        <Button 
-                          className="gap-2" 
-                          onClick={() => window.open(project.links.live, "_blank")}
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          Live Demo
-                        </Button>
-                      )}
-                      {project.links.repo && (
-                        <Button 
-                          variant="outline" 
-                          className="gap-2"
-                          onClick={() => window.open(project.links.repo, "_blank")}
-                        >
-                          <Github className="w-4 h-4" />
-                          {githubStars !== null && (
-                            <div className="flex items-center gap-1">
-                              <Star className="w-3 h-3" />
-                              <span className="text-xs">{githubStars}</span>
-                            </div>
-                          )}
-                          Code
-                        </Button>
-                      )}
-                    </div>
-
-                    {/* Copy Action Buttons */}
-                    <div className="grid grid-cols-2 gap-2">
-                      {project.links.live && (
-                        <Button variant="ghost" size="sm" onClick={copyDemoLink} className="gap-2">
-                          <Copy className="w-3 h-3" />
-                          Copy Demo URL
-                        </Button>
-                      )}
-                      {project.links.repo && (
-                        <Button variant="ghost" size="sm" onClick={copyRepoLink} className="gap-2">
-                          <Copy className="w-3 h-3" />
-                          Copy Repo URL
-                        </Button>
-                      )}
-                    </div>
-
-                    {/* Project Metrics */}
-                    {project.metrics && (
-                      <Card className="p-4 space-y-3">
-                        <h4 className="font-semibold text-sm">Key Metrics</h4>
-                        <div className="grid grid-cols-2 gap-3 text-sm">
-                          {project.metrics.users && (
-                            <div className="flex items-center gap-2">
-                              <Users className="w-4 h-4 text-blue-500" />
-                              <span className="text-muted-foreground">Users:</span>
-                              <span className="font-medium">{project.metrics.users}</span>
-                            </div>
-                          )}
-                          {project.metrics.accuracy && (
-                            <div className="flex items-center gap-2">
-                              <TrendingUp className="w-4 h-4 text-green-500" />
-                              <span className="text-muted-foreground">Accuracy:</span>
-                              <span className="font-medium">{project.metrics.accuracy}</span>
-                            </div>
-                          )}
-                          {project.metrics.performance && (
-                            <div className="flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-orange-500" />
-                              <span className="text-muted-foreground">Performance:</span>
-                              <span className="font-medium">{project.metrics.performance}</span>
-                            </div>
-                          )}
-                          {project.metrics.revenue && (
-                            <div className="flex items-center gap-2">
-                              <Award className="w-4 h-4 text-purple-500" />
-                              <span className="text-muted-foreground">Impact:</span>
-                              <span className="font-medium">{project.metrics.revenue}</span>
-                            </div>
-                          )}
-                        </div>
-                      </Card>
-                    )}
-                  </div>
-
-                  {/* Right: Project Details */}
-                  <div className="space-y-6">
-                    {/* Title and Description */}
-                    <div>
-                      <Dialog.Title as="h2" className="text-3xl font-bold mb-3">
+                {/* Content - Scrollable */}
+                <div className="flex-1 overflow-y-auto p-6 scrollbar-gutter-stable">
+                  <div className="space-y-8">
+                    {/* Project Title */}
+                    <div className="text-center">
+                      <Dialog.Title as="h2" className="text-2xl lg:text-3xl font-bold mb-3">
                         {project.title}
                       </Dialog.Title>
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                        {project.description}
-                      </p>
-                      
-                      {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-2">
-                        {project.tech.map((tech) => (
-                          <Badge key={tech} variant="outline" className="text-xs">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
+                      {project.description && (
+                        <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                          {project.description}
+                        </p>
+                      )}
                     </div>
 
-                    {/* Overview */}
-                    {project.overview && (
-                      <div>
-                        <h3 className="text-lg font-semibold mb-3">Overview</h3>
-                        <p className="text-muted-foreground leading-relaxed">{project.overview}</p>
-                      </div>
-                    )}
-
-                    {/* Problem Statement */}
-                    {project.problem && (
-                      <div>
-                        <h3 className="text-lg font-semibold mb-3">Problem Statement</h3>
-                        <p className="text-muted-foreground leading-relaxed">{project.problem}</p>
-                      </div>
-                    )}
-
-                    {/* Collapsible Sections */}
-                    <div className="space-y-3">
-                      {/* Key Features */}
-                      {project.features && project.features.length > 0 && (
-                        <div className="border border-border rounded-lg">
-                          <button
-                            onClick={() => toggleSection("features")}
-                            className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
-                          >
-                            <h4 className="font-semibold">Key Features</h4>
-                            {expandedSections.features ? (
-                              <ChevronDown className="h-4 w-4" />
-                            ) : (
-                              <ChevronRight className="h-4 w-4" />
-                            )}
-                          </button>
-                          {expandedSections.features && (
-                            <div className="px-4 pb-4 space-y-2">
-                              {project.features.map((feature, index) => (
-                                <div key={index} className="flex items-start gap-2 text-sm">
-                                  <span className="text-primary mt-1 text-xs">●</span>
-                                  <span className="text-muted-foreground">{feature}</span>
-                                </div>
-                              ))}
-                            </div>
+                    {/* Two-column layout for desktop */}
+                    <div className="grid lg:grid-cols-[60%_40%] gap-8">
+                      {/* LEFT COLUMN - Hero Image & CTAs */}
+                      <div className="space-y-6">
+                        {/* Hero Image */}
+                        <div className="relative aspect-video w-full rounded-lg overflow-hidden">
+                          <Image 
+                            src={project.images[currentImageIndex] || project.images[0]} 
+                            alt={`${project.title} screenshot ${currentImageIndex + 1}`} 
+                            fill 
+                            className="object-cover" 
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority={currentImageIndex === 0}
+                          />
+                          
+                          {/* Navigation arrows for multiple images */}
+                          {project.images.length > 1 && (
+                            <>
+                              <Button
+                                size="sm"
+                                variant="secondary"
+                                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white border-0 backdrop-blur-sm"
+                                onClick={prevImage}
+                                aria-label="Previous image"
+                              >
+                                <ChevronLeft className="w-4 h-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="secondary"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white border-0 backdrop-blur-sm"
+                                onClick={nextImage}
+                                aria-label="Next image"
+                              >
+                                <ChevronRight className="w-4 h-4" />
+                              </Button>
+                              
+                              {/* Image counter */}
+                              <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
+                                {currentImageIndex + 1} / {project.images.length}
+                              </div>
+                            </>
                           )}
                         </div>
-                      )}
 
-                      {/* Architecture */}
-                      <div className="border border-border rounded-lg">
-                        <button
-                          onClick={() => toggleSection("architecture")}
-                          className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
-                        >
-                          <h4 className="font-semibold">Architecture</h4>
-                          {expandedSections.architecture ? (
-                            <ChevronDown className="h-4 w-4" />
-                          ) : (
-                            <ChevronRight className="h-4 w-4" />
-                          )}
-                        </button>
-                        {expandedSections.architecture && (
-                          <div className="px-4 pb-4 space-y-2">
-                            {project.architecture.map((item, index) => (
-                              <div key={index} className="flex items-start gap-2 text-sm">
-                                <span className="text-primary mt-1 text-xs">●</span>
-                                <span className="text-muted-foreground">{item}</span>
-                              </div>
+                        {/* Thumbnail strip for multiple images */}
+                        {project.images.length > 1 && (
+                          <div className="flex justify-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                            {project.images.slice(0, 6).map((src, idx) => (
+                              <button
+                                key={src}
+                                className={cn(
+                                  "relative w-12 h-8 flex-shrink-0 rounded overflow-hidden transition-all duration-200",
+                                  idx === currentImageIndex 
+                                    ? 'ring-2 ring-primary scale-105' 
+                                    : 'opacity-70 hover:opacity-100 hover:scale-105'
+                                )}
+                                onClick={() => setCurrentImageIndex(idx)}
+                              >
+                                <Image 
+                                  src={src} 
+                                  alt={`Thumbnail ${idx + 1}`} 
+                                  fill 
+                                  className="object-cover" 
+                                  sizes="48px"
+                                  loading="lazy"
+                                />
+                              </button>
                             ))}
                           </div>
                         )}
+
+                        {/* CTA Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-4">
+                          {project.links.live ? (
+                            <Button asChild className="gap-2 flex-1">
+                              <a href={project.links.live} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="w-4 h-4" />
+                                Live Demo
+                              </a>
+                            </Button>
+                          ) : (
+                            <Button disabled className="gap-2 flex-1" title="Demo unavailable">
+                              <ExternalLink className="w-4 h-4" />
+                              Live Demo
+                            </Button>
+                          )}
+                          
+                          {project.links.repo ? (
+                            <Button variant="outline" asChild className="gap-2 flex-1">
+                              <a href={project.links.repo} target="_blank" rel="noopener noreferrer">
+                                <Github className="w-4 h-4" />
+                                {githubStars !== null && (
+                                  <div className="flex items-center gap-1">
+                                    <Star className="w-3 h-3" />
+                                    <span className="text-xs">{githubStars}</span>
+                                  </div>
+                                )}
+                                Code
+                              </a>
+                            </Button>
+                          ) : (
+                            <Button variant="outline" disabled className="gap-2 flex-1" title="Repository unavailable">
+                              <Github className="w-4 h-4" />
+                              Code
+                            </Button>
+                          )}
+                        </div>
+
+                        {/* Copy URL Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          {project.links.live && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => copyAndToast("Demo URL", project.links.live!)}
+                              className="gap-2"
+                              aria-label="Copy demo URL"
+                            >
+                              <Copy className="w-3 h-3" />
+                              Copy Demo URL
+                            </Button>
+                          )}
+                          {project.links.repo && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => copyAndToast("Repo URL", project.links.repo!)}
+                              className="gap-2"
+                              aria-label="Copy repository URL"
+                            >
+                              <Copy className="w-3 h-3" />
+                              Copy Repo URL
+                            </Button>
+                          )}
+                        </div>
                       </div>
 
-                      {/* Achievements */}
-                      <div className="border border-border rounded-lg">
-                        <button
-                          onClick={() => toggleSection("achievements")}
-                          className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
-                        >
-                          <h4 className="font-semibold">Key Achievements</h4>
-                          {expandedSections.achievements ? (
-                            <ChevronDown className="h-4 w-4" />
-                          ) : (
-                            <ChevronRight className="h-4 w-4" />
-                          )}
-                        </button>
-                        {expandedSections.achievements && (
-                          <div className="px-4 pb-4 space-y-2">
-                            {project.achievements.map((achievement, index) => (
-                              <div key={index} className="flex items-start gap-2 text-sm">
-                                <span className="text-primary mt-1 text-xs">●</span>
-                                <span className="text-muted-foreground">{achievement}</span>
-                              </div>
+                      {/* RIGHT COLUMN - Project Info */}
+                      <div className="space-y-6">
+                        {/* Technologies Used */}
+                        <div>
+                          <h3 className="text-lg font-semibold mb-4">Technologies Used</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {project.tech.map((tech) => (
+                              <Badge key={tech} variant="outline" className="text-sm">
+                                {tech}
+                              </Badge>
                             ))}
                           </div>
+                        </div>
+
+                        {/* Problem & Solution */}
+                        {project.problem && (
+                          <Card className="hover:shadow-md transition-shadow">
+                            <CardHeader className="pb-3">
+                              <h3 className="text-lg font-semibold">Problem</h3>
+                            </CardHeader>
+                            <CardContent>
+                              <p className="text-muted-foreground leading-relaxed">
+                                {project.problem}
+                              </p>
+                            </CardContent>
+                          </Card>
+                        )}
+
+                        {project.overview && (
+                          <Card className="hover:shadow-md transition-shadow">
+                            <CardHeader className="pb-3">
+                              <h3 className="text-lg font-semibold">Solution</h3>
+                            </CardHeader>
+                            <CardContent>
+                              <p className="text-muted-foreground leading-relaxed">
+                                {project.overview}
+                              </p>
+                            </CardContent>
+                          </Card>
                         )}
                       </div>
                     </div>
 
-                    {/* Project Details */}
-                    <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-lg">
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Role</p>
-                        <p className="text-sm">{project.role}</p>
+                    {/* Key Features - Full Width */}
+                    {project.features && project.features.length > 0 && (
+                      <div className="max-w-4xl mx-auto">
+                        <h3 className="text-lg font-semibold mb-4 text-center">Key Features</h3>
+                        <ul className="grid gap-2 list-disc marker:text-primary ml-5 sm:grid-cols-2">
+                          {project.features.map((feature, index) => (
+                            <li key={index} className="text-muted-foreground leading-relaxed">
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      {project.duration && (
-                        <div>
-                          <p className="text-sm font-medium text-muted-foreground">Duration</p>
-                          <p className="text-sm">{project.duration}</p>
-                        </div>
-                      )}
-                      {project.teamSize && (
-                        <div>
-                          <p className="text-sm font-medium text-muted-foreground">Team Size</p>
-                          <p className="text-sm">{project.teamSize} members</p>
-                        </div>
-                      )}
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground">Impact Score</p>
-                        <p className="text-sm font-bold text-primary">{project.impact}/100</p>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </Dialog.Panel>

@@ -7,8 +7,8 @@ import { ModeProvider } from "./context/mode"
 import { Toaster } from "@/components/ui/sonner"
 import { ModalProvider } from "../hooks/useModal"
 import { ThemeProvider } from "@/components/theme-provider"
-import { ModalProject } from "../components/ModalProject"
-import { projects } from "../data/projects"
+import { PostHogProvider } from "@/components/PostHogProvider"
+import ModalCert from "@/components/ModalCert"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -25,7 +25,6 @@ export const metadata: Metadata = {
   },
     generator: 'v0.dev'
 }
-
 export default function RootLayout({
   children,
 }: {
@@ -34,27 +33,34 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        {/* a11y skip-link */}
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ModalProvider>
-            <ModeProvider>
-              <ChapterProvider>
-                <main id="main-content">
-                  {children}
-                </main>
-                <ModalProject projects={projects} />
-                <Toaster />
-              </ChapterProvider>
-            </ModeProvider>
-          </ModalProvider>
-        </ThemeProvider>
+
+        <PostHogProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ModalProvider>
+              <ModeProvider>
+                <ChapterProvider>
+                  {/* ── MAIN ─────────────────────────────────────────────── */}
+                  <main id="main-content">{children}</main>
+
+                  {/* global dialogs (one instance each) */}
+                  <ModalCert />                           {/* ⬅ NEW */}
+
+                  {/* global toasts */}
+                  <Toaster />
+                </ChapterProvider>
+              </ModeProvider>
+            </ModalProvider>
+          </ThemeProvider>
+        </PostHogProvider>
       </body>
     </html>
   )

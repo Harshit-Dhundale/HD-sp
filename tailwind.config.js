@@ -1,13 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
     "*.{js,ts,jsx,tsx,mdx}",
+    // Explicitly exclude deleted files to prevent EPERM errors
+    "!./components/LightboxGallery.tsx",
   ],
+  safelist: [], // Empty safelist to ensure proper tree-shaking
   theme: {
     container: {
       center: true,
@@ -93,6 +99,9 @@ module.exports = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      gridTemplateColumns: {
+        'skills-lg': 'repeat(4,minmax(0,1fr))',
       },
       typography: {
         DEFAULT: {
