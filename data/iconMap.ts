@@ -17,6 +17,7 @@ export const iconMap: Record<string, { reactIcon: string; hex?: string }> = {
   "material ui": { reactIcon: "SiMui", hex: "#0081CB" },
   framer: { reactIcon: "SiFramer", hex: "#0055FF" },
   "framer motion": { reactIcon: "SiFramer", hex: "#0055FF" },
+  "redux toolkit": { reactIcon: "SiRedux", hex: "#764ABC" },
 
   // Backend / infra / db
   nodejs: { reactIcon: "SiNodedotjs", hex: "#339933" },
@@ -34,8 +35,8 @@ export const iconMap: Record<string, { reactIcon: string; hex?: string }> = {
   graphql: { reactIcon: "SiGraphql", hex: "#E10098" },
 
   // Cloud / platform
-  aws: { reactIcon: "SiAmazonaws", hex: "#FF9900" },
-  "amazon web services": { reactIcon: "SiAmazonaws", hex: "#FF9900" },
+  aws: { reactIcon: "SiAmazon", hex: "#FF9900" },
+  "amazon web services": { reactIcon: "SiAmazon", hex: "#FF9900" },
   "google cloud": { reactIcon: "SiGooglecloud", hex: "#4285F4" },
   vercel: { reactIcon: "SiVercel", hex: "#000000" },
   docker: { reactIcon: "SiDocker", hex: "#2496ED" },

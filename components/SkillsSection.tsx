@@ -117,7 +117,7 @@ export default function SkillsSection() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-12 space-y-4"
       >
-        <h2 className="text-4xl font-bold">My Tech Stack</h2>
+        <h2 className="text-4xl font-bold text-[hsl(217_91%_60%)]">My Tech Stack</h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           A curated selection of tools and technologies I wield to build robust, innovative solutions
         </p>
@@ -158,21 +158,41 @@ export default function SkillsSection() {
                   {/* All view: cards per category */}
                   {category.id === 'all' ? (
                     <div className="grid gap-6 lg:grid-cols-2">
-                      {skillCategories.map((cat) => (
-                        <div key={cat.id} className="p-6 border border-muted/30 rounded-2xl bg-card/60">
-                          <h3 className="text-xl font-semibold mb-4 text-center">{cat.label}</h3>
-                          <div className="flex flex-wrap justify-center gap-3">
-                            {skills
-                              .filter((s) => s.category === cat.id)
-                              .map((s) => (
-                                <div key={s.name} className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background/30 border border-muted/20">
-                                  <SkillIcon name={s.name} size={28} />
-                                  <span className="text-sm">{s.name}</span>
-                                </div>
-                              ))}
+                      {skillCategories.map((cat, index) => {
+                        const isLastAndOdd = skillCategories.length % 2 !== 0 && index === skillCategories.length - 1;
+                        
+                        const cardContent = (
+                          <div className="p-6 border border-[rgba(137,91,255,0.3)] rounded-2xl bg-card/60 h-full">
+                            <h3 className="text-xl font-semibold mb-4 text-center">{cat.label}</h3>
+                            <div className="flex flex-wrap justify-center gap-3">
+                              {skills
+                                .filter((s) => s.category === cat.id)
+                                .map((s) => (
+                                  <div key={s.name} className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background/30 border border-muted/20">
+                                    <SkillIcon name={s.name} size={28} />
+                                    <span className="text-sm">{s.name}</span>
+                                  </div>
+                                ))}
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+
+                        if (isLastAndOdd) {
+                          return (
+                            <div key={cat.id} className="lg:col-span-2 flex justify-center">
+                              <div className="w-full lg:w-[calc(50%-0.75rem)]">
+                                {cardContent}
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <div key={cat.id}>
+                            {cardContent}
+                          </div>
+                        );
+                      })}
                     </div>
                   ) : (
                     renderSkillGrid(category.id, false)

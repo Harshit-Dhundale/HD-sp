@@ -9,7 +9,12 @@ import Link from "next/link"
 import { useTypewriter } from 'react-simple-typewriter'
 
 export function HeroClassic() {
-  const words = ['Full-Stack Developer', 'ML Enthusiast', 'Cloud Native Builder']
+  const words = [
+  'Software Development Engineer',
+  'Full-Stack Developer',
+  'Cloud Native Builder',
+  'ML Enthusiast'
+];
   const [text] = useTypewriter({ 
     words, 
     loop: true 
