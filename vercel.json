@@ -1,13 +1,4 @@
 {
-  "functions": {
-    "src/app/api/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "images": {
-    "domains": ["blob.v0.dev"],
-    "formats": ["image/avif", "image/webp"]
-  },
   "headers": [
     {
       "source": "/(.*)",
