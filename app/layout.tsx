@@ -2,8 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { ChapterProvider } from "./context/chapter"
-import { ModeProvider } from "./context/mode"
+
 import { Toaster } from "@/components/ui/sonner"
 import { ModalProvider } from "../hooks/useModal"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -46,18 +45,14 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <ModalProvider>
-              <ModeProvider>
-                <ChapterProvider>
-                  {/* ── MAIN ─────────────────────────────────────────────── */}
-                  <main id="main-content">{children}</main>
+              {/* ── MAIN ─────────────────────────────────────────────── */}
+              <main id="main-content">{children}</main>
 
-                  {/* global dialogs (one instance each) */}
-                  <ModalCert />                           {/* ⬅ NEW */}
+              {/* global dialogs (one instance each) */}
+              <ModalCert />
 
-                  {/* global toasts */}
-                  <Toaster />
-                </ChapterProvider>
-              </ModeProvider>
+              {/* global toasts */}
+              <Toaster />
             </ModalProvider>
           </ThemeProvider>
         </PostHogProvider>

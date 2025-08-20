@@ -7,6 +7,7 @@ import * as Tooltip from '@radix-ui/react-tooltip'
 import type { Skill, SkillCategory } from '@/data/skillsByCategory'
 import { skillCategories, skills } from '@/data/skillsByCategory'
 import { SkillIcon } from './SkillIcon'
+import { createContext, useEffect, useState as useStateLocal } from 'react'
 import { useMediaQuery } from '@/hooks/use-media-query'
 
 const levelColors = {
@@ -122,11 +123,7 @@ export default function SkillsSection() {
         </p>
       </motion.div>
 
-      <Tabs.Root
-        value={activeTab}
-        onValueChange={setActiveTab}
-        className="w-full"
-      >
+      <Tabs.Root value={activeTab} onValueChange={setActiveTab} className="w-full">
         <Tabs.List 
           className="flex overflow-x-auto scrollbar-hide justify-start md:justify-center gap-2 mb-8 pb-2 md:pb-0"
           aria-label="Filter skills by category"
@@ -146,32 +143,45 @@ export default function SkillsSection() {
           ))}
         </Tabs.List>
 
-        <div className="max-h-[70vh] overflow-y-auto rounded-lg px-1 scrollbar-thin scrollbar-track-background scrollbar-thumb-muted-foreground/20">
-          {categories.map((category: SkillCategory) => (
-            <Tabs.Content
-              key={category.id}
-              value={category.id}
-              className="outline-none"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                {activeTab === category.id && (
-                  <motion.div
-                    key={category.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <p className="text-center text-muted-foreground mb-8">
-                      {category.description}
-                    </p>
-                    {renderSkillGrid(category.id, category.id === 'all')}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Tabs.Content>
-          ))}
-        </div>
+        {categories.map((category: SkillCategory) => (
+          <Tabs.Content key={category.id} value={category.id} className="outline-none">
+            <AnimatePresence initial={false} mode="wait">
+              {activeTab === category.id && (
+                <motion.div
+                  key={category.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <p className="text-center text-muted-foreground mb-8">{category.description}</p>
+                  {/* All view: cards per category */}
+                  {category.id === 'all' ? (
+                    <div className="grid gap-6 lg:grid-cols-2">
+                      {skillCategories.map((cat) => (
+                        <div key={cat.id} className="p-6 border border-muted/30 rounded-2xl bg-card/60">
+                          <h3 className="text-xl font-semibold mb-4 text-center">{cat.label}</h3>
+                          <div className="flex flex-wrap justify-center gap-3">
+                            {skills
+                              .filter((s) => s.category === cat.id)
+                              .map((s) => (
+                                <div key={s.name} className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background/30 border border-muted/20">
+                                  <SkillIcon name={s.name} size={28} />
+                                  <span className="text-sm">{s.name}</span>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    renderSkillGrid(category.id, false)
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Tabs.Content>
+        ))}
       </Tabs.Root>
     </section>
   )
