@@ -9,7 +9,7 @@ const experiences = [
     id: "orchid-intern",
     company: "The Orchid Group",
     position: "Full-Stack Web Developer",
-    duration: "Jun 2023 - Aug 2023",
+    duration: "Jun 2024 - Aug 2024",
     location: "Indore, India",
     type: "Internship",
     description:
